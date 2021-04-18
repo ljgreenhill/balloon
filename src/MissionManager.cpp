@@ -6,71 +6,46 @@ void MissionManager::execute(){
     mission_mode_type mode = sfr::mission::mode;
 
     switch(mode){
-        case mission_mode_type::low_power:
-            dispatch_low_power();
+        case mission_mode_type::ascent:
+            dispatch_ascent();
             break;
-        case mission_mode_type::safe:
-            dispatch_safe();
+        case mission_mode_type::deploy_lightsail:
+            dispatch_deploy_lightsail();
             break;
-        case mission_mode_type::standby:
-            dispatch_standby();
+        case mission_mode_type::taking_photo:
+            dispatch_take_photo();
             break;
-        case mission_mode_type::deployment:
-            dispatch_deployment();
+        case mission_mode_type::descent:
+            dispatch_descent();
             break;
     }
 }
 
-void MissionManager::dispatch_standby(){
-    if(sfr::battery::voltage < 3.75 && sfr::fault::check_voltage){
-        sfr::mission::mode = mission_mode_type::low_power;
-        transition_to_low_power();
+void MissionManager::dispatch_ascent(){
+    if(sfr::gps::altitude > constants::gps::mand_deploy){
+        sfr::mission::mode = mission_mode_type::deploy_lightsail;
     }
 }
 
-void MissionManager::dispatch_safe(){}
-
-void MissionManager::dispatch_low_power(){
-    if(sfr::battery::voltage > 3.9 and sfr::fault::check_voltage){
-        sfr::mission::mode = mission_mode_type::standby;
-        transition_to_standby();
-    }    
+void MissionManager::dispatch_deploy_lightsail(){
+    if(sfr::photoresistor::covered){
+        sfr::burnwire::fire = true;
+    }
+    else{
+        sfr::burnwire::mode = burnwire_mode_type::standby;
+        sfr::mission::mode = mission_mode_type::taking_photo;
+    }
 }
 
-void MissionManager::dispatch_deployment(){
-    if(!sfr::button::pressed){
-        sfr::mission::mode = mission_mode_type::standby;
-        sfr::burnwire::fire = false;
+void MissionManager::dispatch_take_photo(){
+    if(!sfr::camera::photo_taken){
         sfr::camera::take_photo = true;
-        sfr::mission::mode = mission_mode_type::standby;
-        transition_to_standby();
+    }
+    else{
+        sfr::camera::take_photo = false;
+        sfr::mission::mode = mission_mode_type::descent;
     }
 }
 
-void MissionManager::transition_to_standby(){
-    sfr::fault::mode = fault_mode_type::active;
-    sfr::acs::mode = acs_mode_type::point;
-    sfr::temperature::mode = temp_mode_type::active;
-    sfr::rockblock::downlink_period = constants::rockblock::ten_minutes;
-}
-
-void MissionManager::transition_to_safe(){
-    sfr::acs::mode = acs_mode_type::off;
-    sfr::rockblock::downlink_period = constants::rockblock::ten_minutes;
-    sfr::temperature::mode = temp_mode_type::active;
-    sfr::fault::mode = fault_mode_type::inactive;
-}
-
-void MissionManager::transition_to_low_power(){
-    sfr::fault::mode = fault_mode_type::active;
-    sfr::acs::mode = acs_mode_type::off;
-    sfr::rockblock::downlink_period= constants::rockblock::two_hours;
-    sfr::temperature::mode = temp_mode_type::inactive;
-}
-
-void MissionManager::transition_to_deployment(){
-    sfr::acs::mode = acs_mode_type::off;
-    sfr::camera::powered = true;
-    sfr::temperature::mode = temp_mode_type::inactive;
-}
+void MissionManager::dispatch_descent(){}
 

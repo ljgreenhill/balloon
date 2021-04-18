@@ -58,7 +58,6 @@ void BurnwireControlTask::dispatch_burn(){
         digitalWrite(constants::burnwire::first_pin, LOW);
         sfr::burnwire::attempts = 0;
         sfr::burnwire::fire = false;
-        sfr::fault::fault_3 = sfr::fault::fault_3 | constants::fault::burn_wire;
     }
     else{
         if(sfr::burnwire::attempts%2 == 0){
