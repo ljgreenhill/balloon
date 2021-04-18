@@ -2,7 +2,6 @@
 
 BurnwireControlTask::BurnwireControlTask(){
     pinMode(constants::burnwire::first_pin, OUTPUT);
-    pinMode(constants::burnwire::second_pin, OUTPUT);
 }
 
 void BurnwireControlTask::execute(){    
@@ -18,7 +17,6 @@ void BurnwireControlTask::execute(){
                 }
                 else{
                     digitalWrite(constants::burnwire::first_pin, LOW);
-                    digitalWrite(constants::burnwire::second_pin, LOW);
                 }
                 break;
             }
@@ -27,7 +25,6 @@ void BurnwireControlTask::execute(){
                 if(millis()-sfr::burnwire::start_time >= constants::burnwire::burn_time){
                     sfr::burnwire::mode = burnwire_mode_type::delay;
                     digitalWrite(constants::burnwire::first_pin, LOW);
-                    digitalWrite(constants::burnwire::second_pin, LOW);
                     sfr::burnwire::start_time = millis();
                 }
                 else{
@@ -44,7 +41,6 @@ void BurnwireControlTask::execute(){
                 }
                 else{
                     digitalWrite(constants::burnwire::first_pin, LOW);
-                    digitalWrite(constants::burnwire::second_pin, LOW);
                 }
                 break;
             }
@@ -55,19 +51,11 @@ void BurnwireControlTask::dispatch_burn(){
     if(sfr::burnwire::attempts >= constants::burnwire::max_attempts){
         sfr::burnwire::mode = burnwire_mode_type::standby;
         digitalWrite(constants::burnwire::first_pin, LOW);
-        digitalWrite(constants::burnwire::first_pin, LOW);
         sfr::burnwire::attempts = 0;
         sfr::burnwire::fire = false;
     }
     else{
-        if(sfr::burnwire::attempts%2 == 0){
-            digitalWrite(constants::burnwire::first_pin, HIGH);
-            digitalWrite(constants::burnwire::second_pin, LOW);
-        }
-        else{
-            digitalWrite(constants::burnwire::first_pin, LOW);
-            digitalWrite(constants::burnwire::second_pin, HIGH);
-        }
+        digitalWrite(constants::burnwire::first_pin, HIGH);
         sfr::burnwire::attempts++;
     }
 }

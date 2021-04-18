@@ -6,12 +6,11 @@ namespace constants
     namespace photoresistor
     {
         constexpr int pin = 22;
-        constexpr int light_val = 0;
+        constexpr int light_val = 800;
     }
     namespace burnwire
     {
         constexpr int first_pin = 35;
-        constexpr int second_pin = 0;
         constexpr int burn_time = 500;
         constexpr int burn_wait = 1000;
         constexpr int max_attempts = 10;
