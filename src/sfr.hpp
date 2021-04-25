@@ -7,6 +7,11 @@
 #include "Modes/burnwire_mode_type.enum"
 #include "constants.hpp"
 #include "MissionManager.hpp"
+#include <SD.h>
+#include <Adafruit_VC0706.h>
+#include <iostream>
+#include <string>
+#include <TinyGPS++.h>
 
 namespace sfr
 {
@@ -49,21 +54,30 @@ namespace sfr
         extern unsigned long downlink_period;
         extern rockblock_mode_type mode;
         extern bool waiting_message;
+        extern int num_iter;
+        extern bool waiting_command;
+
         extern char buffer[constants::rockblock::buffer_size];
         extern uint8_t report[constants::rockblock::packet_size];
         extern int commas[constants::rockblock::num_commas];
+
         extern unsigned char data_length[4];
         extern unsigned char opcode[2];
         extern unsigned char arg_1[4];
         extern unsigned char arg_2[4];
 
+        extern int opcode_p;
+        extern int arg_1_p;
+        extern int arg_2_p;
 
-        extern int num_iter;
-        extern bool waiting_command;
     }
     namespace gps
     {
         extern float altitude;
+    }
+    namespace video
+    {
+        extern bool on;
     }
 };
 

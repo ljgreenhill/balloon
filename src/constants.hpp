@@ -11,18 +11,19 @@ namespace constants
     namespace burnwire
     {
         constexpr int first_pin = 35;
-        constexpr int burn_time = 500;
-        constexpr int burn_wait = 1000;
+        constexpr int burn_time = 250;
+        constexpr int burn_wait = 6000;
         constexpr int max_attempts = 10;
     }
     namespace rockblock
     {
         constexpr int baud = 19200;
         constexpr unsigned long ten_minutes = 600000;
+        constexpr unsigned long one_minute = 60000;
         constexpr int buffer_size = 63;
         constexpr int packet_size = 70;
-        constexpr int num_commas = 5;
         constexpr int max_iter = 200;
+        constexpr int num_commas = 5;
     }
     namespace gps
     {
@@ -30,6 +31,11 @@ namespace constants
         constexpr float min_altitude = 0.0;
         constexpr int baud = 9600;
         constexpr int mand_deploy = 90000;
+        constexpr int awaiting_uplink = 70000;
+    }
+    namespace video
+    {
+        constexpr int pin = 26;
     }
     
     

@@ -6,46 +6,45 @@ void MissionManager::execute(){
     mission_mode_type mode = sfr::mission::mode;
 
     switch(mode){
-        case mission_mode_type::ascent:
-            dispatch_ascent();
+        case mission_mode_type::standby:
+            dispatch_standby();
             break;
-        case mission_mode_type::deploy_lightsail:
-            dispatch_deploy_lightsail();
-            break;
-        case mission_mode_type::taking_photo:
-            dispatch_take_photo();
-            break;
-        case mission_mode_type::descent:
-            dispatch_descent();
+        case mission_mode_type::deployment:
+            dispatch_deployment();
             break;
     }
 }
 
-void MissionManager::dispatch_ascent(){
+void MissionManager::dispatch_awaiting_uplink(){
+    if(sfr::gps::altitude > constants::gps::awaiting_uplink){
+        sfr::mission::mode = mission_mode_type::awaiting_uplink;
+        transition_to_awaiting_uplink();
+    }
+}
+
+void MissionManager::dispatch_awaiting_uplink(){
     if(sfr::gps::altitude > constants::gps::mand_deploy){
-        sfr::mission::mode = mission_mode_type::deploy_lightsail;
+        sfr::mission::mode = mission_mode_type::deployment;
+        transition_to_deployment();
     }
 }
 
-void MissionManager::dispatch_deploy_lightsail(){
-    if(sfr::photoresistor::covered){
-        sfr::burnwire::fire = true;
-    }
-    else{
-        sfr::burnwire::mode = burnwire_mode_type::standby;
-        sfr::mission::mode = mission_mode_type::taking_photo;
-    }
-}
-
-void MissionManager::dispatch_take_photo(){
-    if(!sfr::camera::photo_taken){
+void MissionManager::dispatch_deployment(){
+    if(!sfr::photoresistor::covered){
+        sfr::mission::mode = mission_mode_type::standby;
+        sfr::burnwire::fire = false;
         sfr::camera::take_photo = true;
-    }
-    else{
-        sfr::camera::take_photo = false;
-        sfr::mission::mode = mission_mode_type::descent;
+        sfr::mission::mode = mission_mode_type::standby;
+        transition_to_standby();
     }
 }
 
-void MissionManager::dispatch_descent(){}
+void MissionManager::transition_to_standby(){
+    sfr::rockblock::downlink_period = constants::rockblock::ten_minutes;
+}
 
+void MissionManager::transition_to_awaiting_uplink(){
+    sfr::rockblock::downlink_period = constants::rockblock::one_minute;
+}
+
+void MissionManager::transition_to_deployment(){}

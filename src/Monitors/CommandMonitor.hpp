@@ -7,8 +7,11 @@ class CommandMonitor{
     public:
         CommandMonitor();
         void execute();
-        void dispatch_change_mission_mode();
-        void dispatch_change_fault_checks();
+        void dispatch_change_burnwire();
+        void dispatch_change_camera();
+        void dispatch_change_rockblock();
+        void dispatch_change_mission();
+        void dispatch_change_video();
 };
 
 #endif

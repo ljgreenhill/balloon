@@ -3,68 +3,68 @@
 CommandMonitor::CommandMonitor(){}
 
 void CommandMonitor::execute(){
-    /*if(sfr::rockblock::waiting_command){
-        //transition to mission mode
-        //change rockblock downlink frequency
-
-        if(sfr::rockblock::opcode[0] == '0' && sfr::rockblock::opcode[1] == '0'){
-            dispatch_change_mission_mode();
-        }
-        else if(sfr::rockblock::opcode[0] == '1' || sfr::rockblock::opcode[0] == '2'){
-            dispatch_change_fault_checks();
+    if(sfr::rockblock::waiting_command){
+        switch(sfr::rockblock::opcode_p){
+            case 1:
+                dispatch_change_burnwire();
+                break;
+            case 2:
+                dispatch_change_camera();
+                break;
+            case 3:
+                dispatch_change_rockblock();
+                break;
+            case 4:
+                dispatch_change_mission();
+                break;
+            case 5:
+                dispatch_change_video();
+                break;
         }
         sfr::rockblock::waiting_command = false;
-    }*/
-
+    }
 }
 
-void CommandMonitor::dispatch_change_mission_mode(){
-    /*switch(sfr::rockblock::argument[1]){
-        case '0':
-            sfr::mission::mode = mission_mode_type::low_power;
-            MissionManager::transition_to_low_power();
+void CommandMonitor::dispatch_change_burnwire(){
+    sfr::burnwire::fire = sfr::rockblock::arg_1_p;
+}
+
+void CommandMonitor::dispatch_change_camera(){
+    sfr::camera::take_photo = sfr::rockblock::arg_1_p;
+}
+
+void CommandMonitor::dispatch_change_rockblock(){
+    switch(sfr::rockblock::arg_1_p){
+        case 0:
+            sfr::rockblock::downlink_period = constants::rockblock::one_minute * sfr::rockblock::arg_2_p;
             break;
-        case '1':
-            sfr::mission::mode = mission_mode_type::deployment;
-            MissionManager::transition_to_deployment();
+        case 1:
+            sfr::rockblock::downlink_period = constants::rockblock::one_minute / sfr::rockblock::arg_2_p;
             break;
-        case '2':
+    }
+}
+
+void CommandMonitor::dispatch_change_mission(){
+    switch(sfr::rockblock::arg_1_p){
+        case 0:
             sfr::mission::mode = mission_mode_type::standby;
-            MissionManager::transition_to_standby();
+            sfr::rockblock::downlink_period = constants::rockblock::ten_minutes;
+            //MissionManager::transition_to_standby();
             break;
-        case '3':
-            sfr::mission::mode = mission_mode_type::safe;
-            MissionManager::transition_to_safe();
+        case 1:
+            sfr::mission::mode = mission_mode_type::awaiting_uplink;
+            sfr::rockblock::downlink_period = constants::rockblock::one_minute;
+            //MissionManager::transition_to_awaiting_uplink();
             break;
-    }*/
+        case 2:
+            sfr::mission::mode = mission_mode_type::standby;
+            //MissionManager::transition_to_standby();
+            break;
+    }
 }
 
-void CommandMonitor::dispatch_change_fault_checks(){
-    /*switch(sfr::rockblock::opcode[0]){
-        case '1':
-            switch(sfr::rockblock::opcode[1]){
-                case '0':
-                    if(sfr::rockblock::argument[1] == 0){
-                        sfr::fault::check_mag_x = false;
-                    }else{
-                        sfr::fault::check_mag_x = true;
-                    }
-                case '1':
-                case '2':
-                case '3':
-                case '4':
-                case '5':
-                case '6':
-                case '7':
-                case '8':
-                case '9':
-            }
-        case '2':
-            switch(sfr::rockblock::opcode[1]){
-            }
-
-    }*/
-
+void CommandMonitor::dispatch_change_video(){
+    sfr::video::on = sfr::rockblock::arg_1_p;
 }
 
 

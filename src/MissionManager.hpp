@@ -7,10 +7,12 @@ class MissionManager{
     public:
         MissionManager();
         void execute();
-        void dispatch_ascent();
-        void dispatch_deploy_lightsail();
-        void dispatch_take_photo();
-        void dispatch_descent();
+        void dispatch_standby();
+        void dispatch_awaiting_uplink();
+        void dispatch_deployment();
+        void transition_to_standby();
+        void transition_to_awaiting_uplink();
+        void transition_to_deployment();
 };
 
 #endif

@@ -2,9 +2,6 @@
 #define GPS_MONITOR_HPP_
 
 #include "sfr.hpp"
-#include "constants.hpp"
-#include <Arduino.h> 
-#include <TinyGPS++.h>
 
 class GPSMonitor{
     public:

@@ -2,10 +2,9 @@
 #define mission_mode_type_enum_
 
 enum class mission_mode_type: unsigned char {
-    ascent = 0,
-    deploy_lightsail,
-    taking_photo,
-    descent
+    standby = 0,
+    awaiting_uplink,
+    deployment
 };
 
 #endif

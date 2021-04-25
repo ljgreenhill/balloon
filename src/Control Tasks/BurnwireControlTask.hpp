@@ -2,7 +2,6 @@
 #define BURNWIRE_CONTROL_TASK_HPP_
 
 #include "sfr.hpp"
-#include "constants.hpp"
 
 class BurnwireControlTask{
     public:
