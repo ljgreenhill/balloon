@@ -8,14 +8,13 @@
 #include "MissionManager.hpp"
 #include "Monitors/PhotoresistorMonitor.hpp"
 #include "Control Tasks/RockblockControlTask.hpp"
-#include "Monitors/CameraReportMonitor.hpp"
+#include "Control Tasks/VideoControlTask.hpp"
 #include "Monitors/GPSMonitor.hpp"
 
 class MainControlLoop
 {
 protected:
 
-    CameraReportMonitor camera_report_monitor;
     PhotoresistorMonitor photoresistor_monitor;
     GPSMonitor gps_monitor;
 
@@ -24,6 +23,7 @@ protected:
     BurnwireControlTask burnwire_control_task;
     CameraControlTask camera_control_task;
     RockblockControlTask rockblock_control_task;
+    VideoControlTask video_control_task;
 
 public:
     MainControlLoop();

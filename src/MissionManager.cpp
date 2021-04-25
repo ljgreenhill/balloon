@@ -9,13 +9,16 @@ void MissionManager::execute(){
         case mission_mode_type::standby:
             dispatch_standby();
             break;
+        case mission_mode_type::awaiting_uplink:
+            dispatch_awaiting_uplink();
+            break;
         case mission_mode_type::deployment:
             dispatch_deployment();
             break;
     }
 }
 
-void MissionManager::dispatch_awaiting_uplink(){
+void MissionManager::dispatch_standby(){
     if(sfr::gps::altitude > constants::gps::awaiting_uplink){
         sfr::mission::mode = mission_mode_type::awaiting_uplink;
         transition_to_awaiting_uplink();

@@ -10,10 +10,10 @@ namespace constants
     }
     namespace burnwire
     {
-        constexpr int first_pin = 35;
-        constexpr int burn_time = 250;
-        constexpr int burn_wait = 6000;
-        constexpr int max_attempts = 10;
+        constexpr int pin = 35;
+        constexpr int burn_time = 500;
+        constexpr int burn_wait = 2000;
+        constexpr int max_attempts = 120;
     }
     namespace rockblock
     {

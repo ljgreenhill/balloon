@@ -66,5 +66,3 @@ void CommandMonitor::dispatch_change_mission(){
 void CommandMonitor::dispatch_change_video(){
     sfr::video::on = sfr::rockblock::arg_1_p;
 }
-
-
