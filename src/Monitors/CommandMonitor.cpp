@@ -3,21 +3,28 @@
 CommandMonitor::CommandMonitor(){}
 
 void CommandMonitor::execute(){
-    if(sfr::rockblock::waiting_command){
+    Serial.print("waiting command: ");
+    Serial.println(sfr::rockblock::waiting_command);
+    if(sfr::rockblock::waiting_command == true){
         switch(sfr::rockblock::opcode_p){
             case 1:
+                Serial.println("dispatch change burnwire");
                 dispatch_change_burnwire();
                 break;
             case 2:
+                Serial.println("dispatch change camera");
                 dispatch_change_camera();
                 break;
             case 3:
+                Serial.println("dispatch change rockblock");
                 dispatch_change_rockblock();
                 break;
             case 4:
+                Serial.println("dispatch change mission");
                 dispatch_change_mission();
                 break;
             case 5:
+                Serial.println("dispatch change video");
                 dispatch_change_video();
                 break;
         }

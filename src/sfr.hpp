@@ -58,7 +58,8 @@ namespace sfr
         extern bool waiting_command;
 
         extern char buffer[constants::rockblock::buffer_size];
-        extern uint8_t report[constants::rockblock::packet_size];
+        extern String report;
+
         extern int commas[constants::rockblock::num_commas];
 
         extern unsigned char data_length[4];

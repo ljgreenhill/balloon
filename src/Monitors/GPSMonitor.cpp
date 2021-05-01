@@ -12,6 +12,6 @@ void GPSMonitor::execute(){
         gps.encode(Serial1.read());
     } 
     sfr::gps::altitude = gps.altitude.feet();
-    Serial.println(gps.altitude.feet());
-    Serial.println(gps.altitude.meters());
+    //Serial.println(gps.altitude.feet());
+    //Serial.println(gps.altitude.meters());
 }

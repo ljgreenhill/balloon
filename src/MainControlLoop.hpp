@@ -10,6 +10,8 @@
 #include "Control Tasks/RockblockControlTask.hpp"
 #include "Control Tasks/VideoControlTask.hpp"
 #include "Monitors/GPSMonitor.hpp"
+#include "Monitors/NormalReportMonitor.hpp"
+#include "Monitors/CommandMonitor.hpp"
 
 class MainControlLoop
 {
@@ -19,6 +21,10 @@ protected:
     GPSMonitor gps_monitor;
 
     MissionManager mission_manager;
+
+    NormalReportMonitor normal_report_monitor;
+
+    CommandMonitor command_monitor;
 
     BurnwireControlTask burnwire_control_task;
     CameraControlTask camera_control_task;

@@ -45,7 +45,8 @@ namespace sfr
         bool waiting_command = false;
 
         char buffer[constants::rockblock::buffer_size] = {0};
-        uint8_t report[constants::rockblock::packet_size] = {0};
+
+        String report = "";
         int commas[constants::rockblock::num_commas] = {0};
 
         unsigned char data_length[4] = {0};
