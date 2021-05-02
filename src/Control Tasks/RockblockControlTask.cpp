@@ -91,7 +91,6 @@ void RockblockControlTask::dispatch_standby(){
     if(sfr::rockblock::waiting_message || check_ready()){
         transition_to(rockblock_mode_type::send_at);
     }
-    //transition_to(rockblock_mode_type::send_at);
 }
 
 void RockblockControlTask::dispatch_send_at(){
@@ -111,19 +110,7 @@ void RockblockControlTask::dispatch_send_signal_strength(){
 
 }
 
-void RockblockControlTask::dispatch_await_signal_strength(){
-    if(Serial4.read()==':'){
-        char signal = Serial4.read();
-        Serial.print("SIGNAL: ");
-        Serial.println(signal);
-        if(signal =='3' || signal =='4' || signal =='5'){
-            transition_to(rockblock_mode_type::send_flow_control);
-        } else{
-            transition_to(rockblock_mode_type::send_signal_strength);
-        }
-    }
-    
-}
+
 
 void RockblockControlTask::dispatch_send_flow_control(){
     Serial4.print("AT&K0\r");
@@ -221,14 +208,9 @@ void RockblockControlTask::dispatch_read_message(){
 
 void RockblockControlTask::dispatch_process_command(){
     if(Serial4.read() == 'S' && Serial4.read() == 'B' && Serial4.read() == 'D' && Serial4.read() == 'R' && Serial4.read() == 'B'){
-        Serial.println("entered if");
         Serial4.read();
         Serial4.read();
         Serial4.read();
-        //sfr::rockblock::data_length[0] = Serial4.read();
-        //sfr::rockblock::data_length[1] = Serial4.read();
-        //sfr::rockblock::data_length[2] = Serial4.read();
-        //sfr::rockblock::data_length[3] = Serial4.read();
 
         sfr::rockblock::opcode[0] = Serial4.read();
         Serial.println(sfr::rockblock::opcode[0]);
@@ -253,12 +235,9 @@ void RockblockControlTask::dispatch_process_command(){
         sfr::rockblock::arg_2[3] = Serial4.read();
         Serial.println(sfr::rockblock::arg_2[3]);
 
-        uint32_t c_data_length = sfr::rockblock::data_length[0] | (sfr::rockblock::data_length[1] << 8) | (sfr::rockblock::data_length[2] << 16) | (sfr::rockblock::data_length[3] << 24);
         uint16_t c_opcode = sfr::rockblock::opcode[0] | (sfr::rockblock::opcode[1] << 8);
         uint32_t c_arg_1 = sfr::rockblock::arg_1[0] | (sfr::rockblock::arg_1[1] << 8) | (sfr::rockblock::arg_1[2] << 16) | (sfr::rockblock::arg_1[3] << 24);
         uint32_t c_arg_2 = sfr::rockblock::arg_2[0] | (sfr::rockblock::arg_2[1] << 8) | (sfr::rockblock::arg_2[2] << 16) | (sfr::rockblock::arg_2[3] << 24);
-
-        
 
         std::stringstream ss_opcode;
         ss_opcode << c_opcode;
@@ -275,20 +254,22 @@ void RockblockControlTask::dispatch_process_command(){
         int f_arg_2;
         ss_arg_2 >> f_arg_2;
         
-
-        Serial.print("opcode");
+        Serial.print("opcode: ");
         Serial.println(f_opcode);
 
-        Serial.print("arg 1");
+        Serial.print("arg 1: ");
         Serial.println(f_arg_1);
 
-        Serial.print("arg 2");
+        Serial.print("arg 2: ");
         Serial.println(f_arg_2);
+
+        sfr::rockblock::opcode_p = f_opcode;
+        sfr::rockblock::arg_1_p = f_arg_1;
+        sfr::rockblock::arg_2_p = f_arg_2;
 
         sfr::rockblock::waiting_command = true;
 
         transition_to(rockblock_mode_type::end_transmission);
-
     } 
 }
 
