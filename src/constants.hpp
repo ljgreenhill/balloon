@@ -22,7 +22,7 @@ namespace constants
         constexpr unsigned long one_minute = 60000;
         constexpr int buffer_size = 63;
         constexpr int packet_size = 70;
-        constexpr int max_iter = 200;
+        constexpr int max_iter = 500;
         constexpr int num_commas = 5;
     }
     namespace gps
@@ -36,6 +36,7 @@ namespace constants
     namespace video
     {
         constexpr int pin = 26;
+        constexpr int four_hours = 14400000;
     }
     
     

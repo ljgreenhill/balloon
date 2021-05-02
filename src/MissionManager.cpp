@@ -19,7 +19,7 @@ void MissionManager::execute(){
 }
 
 void MissionManager::dispatch_standby(){
-    if(sfr::gps::altitude > constants::gps::awaiting_uplink){
+    if(sfr::gps::altitude_average > constants::gps::awaiting_uplink){
         sfr::mission::mode = mission_mode_type::awaiting_uplink;
         transition_to_awaiting_uplink();
     }

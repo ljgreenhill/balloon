@@ -7,9 +7,9 @@ class GPSMonitor{
     public:
         GPSMonitor();
         void execute();
-        TinyGPSPlus gps;
     private:
-        int num_commas = 0;
+        float num_entries = 0;
+        float sum = 0;
 };
 
 #endif

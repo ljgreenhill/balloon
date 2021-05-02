@@ -3,8 +3,6 @@
 CommandMonitor::CommandMonitor(){}
 
 void CommandMonitor::execute(){
-    Serial.print("waiting command: ");
-    Serial.println(sfr::rockblock::waiting_command);
     if(sfr::rockblock::waiting_command == true){
         switch(sfr::rockblock::opcode_p){
             case 1:

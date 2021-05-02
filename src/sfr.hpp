@@ -11,7 +11,7 @@
 #include <Adafruit_VC0706.h>
 #include <iostream>
 #include <string>
-#include <TinyGPS++.h>
+#include <TinyGPS.h>
 
 namespace sfr
 {
@@ -35,18 +35,6 @@ namespace sfr
         extern bool take_photo;
         extern bool photo_taken;
         extern uint8_t buffer[255];
-        extern uint16_t current_serial;
-        extern uint8_t fragment_number;
-        extern uint8_t max_fragments;
-        extern uint8_t data_length;
-        extern uint8_t fragment_number_requested;
-        extern uint8_t serial_requested;
-        extern bool fragment_requested;
-        extern uint8_t images_written;
-        extern uint16_t image_lengths[255];
-        extern bool report_ready;
-        extern bool full_image_written;
-        extern bool report_downlinked;
     }
     namespace rockblock
     {
@@ -75,6 +63,7 @@ namespace sfr
     namespace gps
     {
         extern float altitude;
+        extern float altitude_average;
     }
     namespace video
     {

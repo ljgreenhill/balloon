@@ -22,18 +22,6 @@ namespace sfr
         bool take_photo = false;
         bool photo_taken = false;
         uint8_t buffer[255] = {0};
-        uint16_t current_serial = 0;
-        uint8_t fragment_number = 0;
-        uint8_t max_fragments = 0;
-        uint8_t data_length = 0;
-        uint8_t fragment_number_requested = 3;
-        uint8_t serial_requested = 0;
-        bool fragment_requested = false;
-        uint8_t images_written = 0;
-        uint16_t image_lengths[255];
-        bool report_ready = false;
-        bool full_image_written = false;
-        bool report_downlinked = true;
     }
     namespace rockblock
     {
@@ -49,7 +37,6 @@ namespace sfr
         String report = "";
         int commas[constants::rockblock::num_commas] = {0};
 
-        unsigned char data_length[4] = {0};
         unsigned char opcode[2] = {0};
         unsigned char arg_1[4] = {0};
         unsigned char arg_2[4] = {0};
@@ -61,9 +48,10 @@ namespace sfr
     namespace gps
     {
         float altitude = 0.0;
+        float altitude_average = 0.0;
     }
     namespace video
     {
-        bool on = true;
+        bool on = false;
     }
 }
