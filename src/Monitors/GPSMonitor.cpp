@@ -1,12 +1,39 @@
 #include "GPSMonitor.hpp"
 
-//Green goes with white
-//Yellow goes with green
+// TX -> RX
+// RX -> TX
 
 TinyGPS gps;
+boolean ready = false;
 
 GPSMonitor::GPSMonitor(){
-    Serial1.begin(constants::gps::baud);
+    while(!ready){
+        Serial1.begin(constants::gps::baud);
+        delay(200);
+
+        Serial1.write((uint8_t *)&constants::gps::CheckNav, sizeof(constants::gps::CheckNav));
+
+        Serial1.flush();
+        delay(200);
+
+        Serial1.write( (uint8_t *)&constants::gps::SetCfgNav5, sizeof(constants::gps::SetCfgNav5));
+
+        Serial1.flush();
+        delay(200);
+
+        Serial1.write((uint8_t *)&constants::gps::CheckNav, sizeof(constants::gps::CheckNav));
+
+        Serial1.flush();
+        delay(200);
+
+        while(Serial1.available()){
+            if(Serial1.read() == 255 && Serial1.read() == 255 && Serial1.read() == 6 && Serial1.read() == 3){
+                ready = true;
+            }
+        }
+
+    }
+    
 }
 
 void GPSMonitor::execute(){  
