@@ -16,9 +16,9 @@ void MainControlLoop::execute()
 
     mission_manager.execute();
 
-    command_monitor.execute();
     gps_monitor.execute();
     normal_report_monitor.execute();
+    command_monitor.execute();
     photoresistor_monitor.execute();
     
     camera_control_task.execute();
