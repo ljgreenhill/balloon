@@ -50,10 +50,6 @@ namespace sfr
 
         extern int commas[constants::rockblock::num_commas];
 
-        extern unsigned char opcode[1];
-        extern unsigned char arg_1[1];
-        extern unsigned char arg_2[1];
-
         extern int opcode_p;
         extern int arg_1_p;
         extern int arg_2_p;

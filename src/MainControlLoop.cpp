@@ -6,16 +6,11 @@ MainControlLoop::MainControlLoop()
     //delay(30000);
     //Serial.println("delay over");
     sfr::mission::time = millis();
-
-    //MAKE SURE TO REMOVE
-    sfr::rockblock::downlink_period = constants::rockblock::one_minute;
-    //sfr::burnwire::fire = true;    
 }
 
 void MainControlLoop::execute()
 {    
-    //if(millis() - sfr::mission::time > constants::mission::one_hour){
-    if(millis() - sfr::mission::time > 120000) {
+    if(millis() - sfr::mission::time > constants::mission::one_hour){
         burnwire_control_task.execute();
     }
 
@@ -29,5 +24,4 @@ void MainControlLoop::execute()
     camera_control_task.execute();
     rockblock_control_task.execute();
     video_control_task.execute();
-
 }

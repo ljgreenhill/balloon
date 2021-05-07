@@ -37,10 +37,6 @@ namespace sfr
         String report = "";
         int commas[constants::rockblock::num_commas] = {0};
 
-        unsigned char opcode[1] = {0};
-        unsigned char arg_1[1] = {0};
-        unsigned char arg_2[1] = {0};
-
         int opcode_p = 0;
         int arg_1_p = 0;
         int arg_2_p = 0;  
