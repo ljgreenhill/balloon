@@ -9,14 +9,15 @@ MainControlLoop::MainControlLoop()
 
     //MAKE SURE TO REMOVE
     sfr::rockblock::downlink_period = constants::rockblock::one_minute;
-    
+    //sfr::burnwire::fire = true;    
 }
 
 void MainControlLoop::execute()
 {    
     //if(millis() - sfr::mission::time > constants::mission::one_hour){
+    if(millis() - sfr::mission::time > 120000) {
         burnwire_control_task.execute();
-    //}
+    }
 
     mission_manager.execute();
 
@@ -28,19 +29,5 @@ void MainControlLoop::execute()
     camera_control_task.execute();
     rockblock_control_task.execute();
     video_control_task.execute();
-
-    //Serial.print("GPS ALTITUDE: ");
-    Serial.println(sfr::gps::altitude);
-
-    //Serial.print("GPS AVERAGE ALTITUDE: ");
-    //Serial.println(sfr::gps::altitude_average);
-
-    //Serial.print("PHOTORESISTOR COVERED?: ");
-    //Serial.println(sfr::photoresistor::covered);
-
-    //Serial.println(sfr::gps::altitude_average);
-    //Serial.println(sfr::gps::altitude);
-       
-    //delay(100);
 
 }

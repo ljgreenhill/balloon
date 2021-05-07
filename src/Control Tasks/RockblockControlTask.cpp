@@ -29,7 +29,7 @@ void RockblockControlTask::execute(){
             dispatch_send_signal_strength();
             break;
         case rockblock_mode_type::await_signal_strength:
-            Serial.println("await_signal_strength");
+            // Serial.println("await_signal_strength");
             dispatch_await_signal_strength();
             break;
         case rockblock_mode_type::send_flow_control:

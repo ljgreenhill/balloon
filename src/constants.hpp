@@ -34,8 +34,8 @@ namespace constants
         constexpr float max_altitude = 150000;
         constexpr float min_altitude = 0.0;
         constexpr int baud = 9600;
-        constexpr int mand_deploy = 90000;
-        constexpr int awaiting_uplink = 70000;
+        constexpr int mand_deploy = 89062;
+        constexpr int awaiting_uplink = 83190;
         constexpr uint8_t SetCfgNav5[] = {0xB5, 0x62, 0x06, 0x24, 0x24, 0x00, 0x01, 0x01, // Note two 0x01's.  Don't know if the bitmask is little-endian or not.
                                           0x06, 0x03, 0x00, 0x00, 0x00, 0x00, 0x10, 0x27, // Set dyn mode to 6 - airborne <1g.  That's plenty for balloons.
                                           0x00, 0x00, 0x05, 0x00, 0xFA, 0x00, 0xFA, 0x00,
