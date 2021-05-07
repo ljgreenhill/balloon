@@ -9,6 +9,7 @@ namespace sfr
     namespace mission
     {
         mission_mode_type mode = mission_mode_type::standby;
+        int time = 0;
     }
     namespace burnwire
     {
@@ -20,7 +21,6 @@ namespace sfr
     namespace camera
     {
         bool take_photo = false;
-        bool photo_taken = false;
         uint8_t buffer[255] = {0};
     }
     namespace rockblock
@@ -37,9 +37,9 @@ namespace sfr
         String report = "";
         int commas[constants::rockblock::num_commas] = {0};
 
-        unsigned char opcode[2] = {0};
-        unsigned char arg_1[4] = {0};
-        unsigned char arg_2[4] = {0};
+        unsigned char opcode[1] = {0};
+        unsigned char arg_1[1] = {0};
+        unsigned char arg_2[1] = {0};
 
         int opcode_p = 0;
         int arg_1_p = 0;

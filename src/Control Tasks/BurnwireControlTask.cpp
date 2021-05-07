@@ -29,7 +29,7 @@ void BurnwireControlTask::execute(){
                     sfr::burnwire::start_time = millis();
                 }
                 else{
-                    digitalWrite(constants::burnwire::pin, HIGH);
+                    digitalWrite(constants::burnwire::pin, HIGH); 
                 }
                 break;
             }
@@ -37,7 +37,7 @@ void BurnwireControlTask::execute(){
             {
                 Serial.println("delay");
                 Serial.println(sfr::burnwire::attempts);
-                if(millis()-sfr::burnwire::start_time >= constants::burnwire::burn_wait){
+                if((millis()-sfr::burnwire::start_time) >= constants::burnwire::burn_wait){
                     sfr::burnwire::mode = burnwire_mode_type::burn;
                     Serial.println(sfr::burnwire::attempts);
                     Serial.println(constants::burnwire::max_attempts);

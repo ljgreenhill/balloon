@@ -26,15 +26,14 @@ void MissionManager::dispatch_standby(){
 }
 
 void MissionManager::dispatch_awaiting_uplink(){
-    if(sfr::gps::altitude > constants::gps::mand_deploy){
+    if(sfr::gps::altitude_average > constants::gps::mand_deploy){
         sfr::mission::mode = mission_mode_type::deployment;
         transition_to_deployment();
     }
 }
 
 void MissionManager::dispatch_deployment(){
-    if(!sfr::photoresistor::covered){
-        sfr::mission::mode = mission_mode_type::standby;
+    if(sfr::photoresistor::covered == false){
         sfr::burnwire::fire = false;
         sfr::camera::take_photo = true;
         sfr::mission::mode = mission_mode_type::standby;

@@ -26,7 +26,7 @@ protected:
     CommandMonitor command_monitor;
     GPSMonitor gps_monitor;
     NormalReportMonitor normal_report_monitor;
-    PhotoresistorMonitor photoresistore_monitor;
+    PhotoresistorMonitor photoresistor_monitor;
 
 public:
     MainControlLoop();

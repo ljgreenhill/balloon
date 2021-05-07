@@ -10,6 +10,8 @@ class GPSMonitor{
     private:
         float num_entries = 0;
         float sum = 0;
+        boolean ready = false;
+        TinyGPS gps;
 };
 
 #endif

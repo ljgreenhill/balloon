@@ -11,7 +11,7 @@
 #include <Adafruit_VC0706.h>
 #include <iostream>
 #include <string>
-#include <TinyGPS.h>
+#include "TinyGPS.h"
 
 namespace sfr
 {
@@ -22,6 +22,7 @@ namespace sfr
     namespace mission
     {
         extern mission_mode_type mode;
+        extern int time;
     }
     namespace burnwire
     {
@@ -33,7 +34,6 @@ namespace sfr
     namespace camera
     {
         extern bool take_photo;
-        extern bool photo_taken;
         extern uint8_t buffer[255];
     }
     namespace rockblock
@@ -50,10 +50,9 @@ namespace sfr
 
         extern int commas[constants::rockblock::num_commas];
 
-        extern unsigned char data_length[4];
-        extern unsigned char opcode[2];
-        extern unsigned char arg_1[4];
-        extern unsigned char arg_2[4];
+        extern unsigned char opcode[1];
+        extern unsigned char arg_1[1];
+        extern unsigned char arg_2[1];
 
         extern int opcode_p;
         extern int arg_1_p;

@@ -9,7 +9,6 @@ class CameraControlTask{
         CameraControlTask();
         void execute();
         Adafruit_VC0706 adaCam;
-       
 };
 
 #endif
