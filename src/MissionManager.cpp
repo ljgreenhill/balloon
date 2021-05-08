@@ -49,4 +49,6 @@ void MissionManager::transition_to_awaiting_uplink(){
     sfr::rockblock::downlink_period = constants::rockblock::one_minute;
 }
 
-void MissionManager::transition_to_deployment(){}
+void MissionManager::transition_to_deployment(){
+    sfr::burnwire::fire = true;
+}

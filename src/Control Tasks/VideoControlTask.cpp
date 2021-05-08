@@ -6,10 +6,11 @@ VideoControlTask::VideoControlTask(){
 }
 
 void VideoControlTask::execute(){    
-    if(sfr::video::on == true || (millis() - sfr::rockblock::last_downlink <= constants::video::four_hours)){
-        (constants::video::pin, HIGH);
-    } else{
-        Serial.println("Turn off cameras");
+    if(millis() - sfr::mission::time > constants::video::four_hours){
+        Serial.println("Cameras off");
         digitalWrite(constants::video::pin, LOW);
+    } else{
+        Serial.println("Cameras on");
+        digitalWrite(constants::video::pin, HIGH);
     }
 }
