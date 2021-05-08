@@ -42,7 +42,7 @@ void MissionManager::dispatch_deployment(){
 }
 
 void MissionManager::transition_to_standby(){
-    sfr::rockblock::downlink_period = constants::rockblock::five_minutes;
+    sfr::rockblock::downlink_period = constants::rockblock::ten_minutes;
 }
 
 void MissionManager::transition_to_awaiting_uplink(){
