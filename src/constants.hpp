@@ -22,7 +22,7 @@ namespace constants
     namespace rockblock
     {
         constexpr int baud = 19200;
-        constexpr unsigned long ten_minutes = 600000;
+        constexpr unsigned long five_minutes = 300000;
         constexpr unsigned long one_minute = 60000;
         constexpr int buffer_size = 63;
         constexpr int packet_size = 70;

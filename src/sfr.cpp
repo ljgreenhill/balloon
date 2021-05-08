@@ -26,7 +26,7 @@ namespace sfr
     namespace rockblock
     {
         unsigned long last_downlink = 0;
-        unsigned long downlink_period = constants::rockblock::ten_minutes;
+        unsigned long downlink_period = constants::rockblock::five_minutes;
         rockblock_mode_type mode = rockblock_mode_type::send_at;
         bool waiting_message = false;
         int num_iter = 0;

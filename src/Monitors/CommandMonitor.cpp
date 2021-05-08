@@ -68,7 +68,7 @@ void CommandMonitor::dispatch_change_mission(){
     switch(sfr::rockblock::arg_1_p){
         case 0:
             sfr::mission::mode = mission_mode_type::standby;
-            sfr::rockblock::downlink_period = constants::rockblock::ten_minutes;
+            sfr::rockblock::downlink_period = constants::rockblock::five_minutes;
             Serial.print("Change mission mode to standby");
             //MissionManager::transition_to_standby();
             break;
@@ -80,6 +80,7 @@ void CommandMonitor::dispatch_change_mission(){
             break;
         case 2:
             sfr::mission::mode = mission_mode_type::deployment;
+            sfr::burnwire::fire = true;
             Serial.print("Change mission mode to deployment");
             //MissionManager::transition_to_standby();
             break;
