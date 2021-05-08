@@ -3,14 +3,12 @@
 
 MainControlLoop::MainControlLoop()
 {    
-    //delay(30000);
-    //Serial.println("delay over");
     sfr::mission::time = millis();
 }
 
 void MainControlLoop::execute()
 {    
-    if(millis() - sfr::mission::time > constants::mission::one_hour){
+    if(millis() - sfr::mission::time > constants::mission::ninety_minutes){
         burnwire_control_task.execute();
     }
 

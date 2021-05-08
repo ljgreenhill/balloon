@@ -5,7 +5,7 @@ namespace constants
 {
     namespace mission
     {
-        constexpr int one_hour = 3600000;
+        constexpr int ninety_minutes = 5400000;
     }
     namespace photoresistor
     {
@@ -15,7 +15,7 @@ namespace constants
     namespace burnwire
     {
         constexpr int pin = 35;
-        constexpr int burn_time = 200;
+        constexpr int burn_time = 500;
         constexpr int burn_wait = 2000;
         constexpr int max_attempts = 20;
     }
@@ -47,7 +47,7 @@ namespace constants
     namespace video
     {
         constexpr int pin = 26;
-        constexpr int six_hours = 21600000;
+        constexpr int four_hours = 14400000;
     }  
 };
 
