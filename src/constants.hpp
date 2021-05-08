@@ -31,8 +31,6 @@ namespace constants
     }
     namespace gps
     {
-        constexpr float max_altitude = 150000;
-        constexpr float min_altitude = 0.0;
         constexpr int baud = 9600;
         constexpr int mand_deploy = 89062;
         constexpr int awaiting_uplink = 80000;
