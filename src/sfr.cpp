@@ -9,7 +9,6 @@ namespace sfr
     namespace mission
     {
         mission_mode_type mode = mission_mode_type::standby;
-        bool low_power_eligible = true;
     }
     namespace burnwire
     {
@@ -63,11 +62,11 @@ namespace sfr
         uint8_t opcode[2] = {0};
         uint8_t arg_1[4] = {0};
         uint8_t arg_2[4] = {0};
-        #ifndef SIMULATOR
+#ifndef SIMULATOR
         HardwareSerial serial = Serial1;
-        #else
+#else
         RockblockSimulator serial;
-        #endif
+#endif
         bool flush_status = false;
         bool waiting_command = false;
         size_t conseq_reads = 0;
@@ -78,89 +77,6 @@ namespace sfr
         int start_time = 0;
         bool last_timed_out = false;
         int num_downlinks = 0;
-    }
-    namespace imu
-    {
-        float mag_x = 0.0;
-        float mag_y = 0.0;
-        float mag_z = 0.0;
-        float gyro_x = 0.0;
-        float gyro_y = 0.0;
-        float gyro_z = 0.0;
-        
-        std::deque<float> mag_x_buffer;
-        std::deque<float> mag_y_buffer;
-        std::deque<float> mag_z_buffer;
-        std::deque<float> gyro_x_buffer;
-        std::deque<float> gyro_y_buffer;
-        std::deque<float> gyro_z_buffer;
-        std::deque<float> acc_x_buffer;
-        std::deque<float> acc_y_buffer;
-        std::deque<float> acc_z_buffer;
-
-        float mag_x_average = 0.0;
-        float mag_y_average = 0.0;
-        float mag_z_average = 0.0;
-        float gyro_x_average = 0.0;
-        float gyro_y_average = 0.0;
-        float gyro_z_average = 0.0;
-        float acc_x_average = 0.0;
-        float acc_y_average = 0.0;
-        float acc_z_average = 0.0;
-    }
-    namespace temperature
-    {
-        float temp_c = 0.0;
-        std::deque<float> temp_c_buffer;
-        float temp_c_average = 0.0;
-        temp_mode_type mode = temp_mode_type::active;
-        bool in_sun = false;
-    }
-    namespace current
-    {
-        float solar_current = 0.0;
-        std::deque<float> solar_current_buffer;
-        float solar_current_average = 0.0;
-        bool in_sun = false;
-    }
-    namespace acs
-    {
-        acs_mode_type mode = acs_mode_type::off;
-        int current1 = 0;
-        int current2 = 0;
-        int current3 = 0;
-        simple_acs_type mag = simple_acs_type::x;
-        unsigned long max_no_communication = 0;
-    }
-    namespace battery
-    {
-        float voltage = 0.0;
-        std::deque<float> voltage_buffer;
-        float voltage_average = 0.0;
-    }
-    namespace fault
-    {
-        fault_mode_type mode = fault_mode_type::active;
-
-        unsigned char fault_1 = 0;
-        unsigned char fault_2 = 0;
-        unsigned char fault_3 = 0;
-
-        //FAULT 1
-        bool check_mag_x = true;
-        bool check_mag_y = true;
-        bool check_mag_z = true;
-        bool check_gyro_x = true;
-        bool check_gyro_y = true;
-        bool check_gyro_z = true;
-        bool check_acc_x = true;
-        bool check_acc_y = true;
-
-        //FAULT 2
-        bool check_acc_z = true;
-        bool check_temp_c = true;
-        bool check_solar_current = true;
-        bool check_voltage = true;
     }
     namespace button
     {

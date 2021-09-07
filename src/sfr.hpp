@@ -3,12 +3,8 @@
 
 #include "Arduino.h"
 #include "Modes/mission_mode_type.enum"
-#include "Modes/acs_mode_type.enum"
 #include "Modes/rockblock_mode_type.enum"
 #include "Modes/burnwire_mode_type.enum"
-#include "Modes/temp_mode_type.enum"
-#include "Modes/fault_mode_type.enum"
-#include "Modes/simple_acs_type.enum"
 #include "Control Tasks/TimedControlTask.hpp"
 #include "Control Tasks/BurnwireControlTask.hpp"
 #include "RockblockSimulator.hpp"
@@ -16,8 +12,6 @@
 #include "MissionManager.hpp"
 #include <SD.h>
 #include <Adafruit_VC0706.h>
-#include <StarshotACS0.h>
-#include <Adafruit_LSM9DS1.h>
 #include <iostream>
 #include <string>
 #include <sstream>
@@ -33,7 +27,6 @@ namespace sfr
     namespace mission
     {
         extern mission_mode_type mode;
-        extern bool low_power_eligible;
     }
     namespace burnwire
     {
@@ -87,11 +80,11 @@ namespace sfr
         extern uint8_t opcode[2];
         extern uint8_t arg_1[4];
         extern uint8_t arg_2[4];
-        #ifndef SIMULATOR
+#ifndef SIMULATOR
         extern HardwareSerial serial;
-        #else
+#else
         extern RockblockSimulator serial;
-        #endif
+#endif
         extern bool flush_status;
         extern bool waiting_command;
         extern size_t conseq_reads;
@@ -102,83 +95,6 @@ namespace sfr
         extern int start_time;
         extern bool last_timed_out;
         extern int num_downlinks;
-    }
-    namespace imu
-    {
-        extern float mag_x;
-        extern float mag_y;
-        extern float mag_z;
-        extern float gyro_x;
-        extern float gyro_y;
-        extern float gyro_z;
-        
-        extern std::deque<float> mag_x_buffer;
-        extern std::deque<float> mag_y_buffer;
-        extern std::deque<float> mag_z_buffer;
-        extern std::deque<float> gyro_x_buffer;
-        extern std::deque<float> gyro_y_buffer;
-        extern std::deque<float> gyro_z_buffer;
-
-        extern float mag_x_average;
-        extern float mag_y_average;
-        extern float mag_z_average;
-        extern float gyro_x_average;
-        extern float gyro_y_average;
-        extern float gyro_z_average;
-    }
-    namespace temperature
-    {
-        extern float temp_c;
-        extern std::deque<float> temp_c_buffer;
-        extern float temp_c_average;
-        extern temp_mode_type mode;
-        extern bool in_sun;
-    }
-    namespace current
-    {
-        extern float solar_current;
-        extern std::deque<float> solar_current_buffer;
-        extern float solar_current_average;
-        extern bool in_sun;
-    }
-    namespace acs
-    {
-        extern acs_mode_type mode;
-        extern int current1;
-        extern int current2;
-        extern int current3;
-        extern simple_acs_type mag;
-        extern unsigned long max_no_communication;
-    }
-    namespace battery
-    {
-        extern float voltage;
-        extern std::deque<float> voltage_buffer;
-        extern float voltage_average;
-    }
-    namespace fault
-    {
-        extern fault_mode_type mode;
-
-        extern unsigned char fault_1;
-        extern unsigned char fault_2;
-        extern unsigned char fault_3;
-
-        //FAULT 1
-        extern bool check_mag_x;
-        extern bool check_mag_y;
-        extern bool check_mag_z;
-        extern bool check_gyro_x;
-        extern bool check_gyro_y;
-        extern bool check_gyro_z;
-        extern bool check_acc_x;
-        extern bool check_acc_y;
-
-        //FAULT 2
-        extern bool check_acc_z;
-        extern bool check_temp_c;
-        extern bool check_solar_current;
-        extern bool check_voltage;
     }
     namespace button
     {
