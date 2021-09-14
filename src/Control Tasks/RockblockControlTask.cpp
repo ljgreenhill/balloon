@@ -6,9 +6,6 @@ RockblockControlTask::RockblockControlTask(unsigned int offset): TimedControlTas
 
 void RockblockControlTask::execute(){
     rockblock_mode_type mode = sfr::rockblock::mode;
-    if(sfr::rockblock::last_communication >= sfr::acs::max_no_communication && (int) sfr::rockblock::mode != (int) mission_mode_type::low_power){
-        sfr::acs::mode = acs_mode_type::simple;
-    }
     timed_out();
     switch(mode){
         case rockblock_mode_type::standby:
@@ -118,9 +115,7 @@ void RockblockControlTask::timed_out(){
 }
 
 void RockblockControlTask::dispatch_standby(){
-    sfr::mission::low_power_eligible = true;
     if(check_ready() || sfr::rockblock::waiting_message){
-        sfr::mission::low_power_eligible = false;
         transition_to(rockblock_mode_type::send_at);
         digitalWrite(constants::rockblock::sleep_pin, HIGH);
         sfr::rockblock::start_time = millis();

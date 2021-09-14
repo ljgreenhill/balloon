@@ -11,11 +11,30 @@ void BurnwireControlTask::execute(){
         case burnwire_mode_type::standby:
             { 
                 if(sfr::mission::mode == mission_mode_type::deployment){
-                    dispatch_burn();
+                    sfr::burnwire::mode = burnwire_mode_type::power_camera;
+                    sfr::camera::turn_on = true;
                 } else{
                     transition_to_standby();
                 }
                 break;  
+            }
+
+        case burnwire_mode_type::power_camera:
+            {
+                if(sfr::mission::mode == mission_mode_type::deployment){
+                    if(sfr::camera::powered){
+                        dispatch_burn();
+                    } 
+                    else if(sfr::burnwire::camera_attempts >= constants::burnwire::camera_max_attempts){
+                        dispatch_burn();
+                    }
+                    else{
+                        sfr::burnwire::camera_attempts++;
+                    }
+                } else{
+                    transition_to_standby();
+                }
+            break;
             }
 
         case burnwire_mode_type::burn:
@@ -72,7 +91,5 @@ void BurnwireControlTask::dispatch_burn(){
 void BurnwireControlTask::transition_to_standby(){
     sfr::burnwire::mode = burnwire_mode_type::standby;
     digitalWrite(constants::burnwire::pin, LOW);
-    sfr::burnwire::fire = false;
-    sfr::burnwire::arm = false;
     sfr::burnwire::attempts = 0;
 }
