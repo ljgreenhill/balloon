@@ -11,32 +11,12 @@ void BurnwireControlTask::execute(){
         case burnwire_mode_type::standby:
             { 
                 if(sfr::mission::mode == mission_mode_type::deployment){
-                    sfr::burnwire::mode = burnwire_mode_type::power_camera;
-                    sfr::camera::turn_on = true;
+                    dispatch_burn();
                 } else{
                     transition_to_standby();
                 }
                 break;  
             }
-
-        case burnwire_mode_type::power_camera:
-            {
-                if(sfr::mission::mode == mission_mode_type::deployment){
-                    if(sfr::camera::powered){
-                        dispatch_burn();
-                    } 
-                    else if(sfr::burnwire::camera_attempts >= constants::burnwire::camera_max_attempts){
-                        dispatch_burn();
-                    }
-                    else{
-                        sfr::burnwire::camera_attempts++;
-                    }
-                } else{
-                    transition_to_standby();
-                }
-            break;
-            }
-
         case burnwire_mode_type::burn:
             {
                 if(sfr::mission::mode == mission_mode_type::deployment){

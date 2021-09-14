@@ -2,6 +2,10 @@
 
 namespace sfr
 {
+    namespace timer
+    {
+        float start_time = 0.0;
+    }
     namespace photoresistor
     {
         bool covered = true;
@@ -78,5 +82,11 @@ namespace sfr
     namespace button
     {
         bool pressed = true;
+    }
+    namespace gps
+    {
+        float altitude = 0.0;
+        std::deque<float> altitude_buffer;
+        float altitude_average = 0.0;
     }
 }

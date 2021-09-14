@@ -3,15 +3,18 @@
 
 namespace constants
 {
-
+    namespace timer
+    {
+        constexpr int fail_safe_deploy = 30000;
+    }
     namespace photoresistor
     {
-        constexpr int pin = 17;
+        constexpr int pin = 22;
         constexpr int light_val = 150;
     }
     namespace burnwire
     {
-        constexpr int pin = 37;
+        constexpr int pin = 30;
         constexpr int burn_wait = 1000;
         constexpr int max_attempts = 10;
         constexpr int camera_max_attempts = 50;
@@ -21,23 +24,18 @@ namespace constants
         constexpr int max_armed_time = 86400000;
     }
     namespace rockblock
-    {   
+    {
         constexpr unsigned long one_second = 1000;
+
         constexpr unsigned long one_minute = 60 * one_second;
-        constexpr unsigned long one_hour = 60 * one_minute;
-        constexpr unsigned long one_day = 24 * one_hour;
-
-        constexpr unsigned long half_second = one_second / 2;
         constexpr unsigned long ten_minutes = 10 * one_minute;
-        constexpr unsigned long two_hours = 2 * one_hour;
-        constexpr unsigned long two_days = 2 * one_day;
 
-        constexpr int sleep_pin = 38;
+        constexpr int sleep_pin = 29;
 
         constexpr int min_sleep_period = 2 * one_minute;
 
         constexpr int min_downlink_period = one_second;
-        constexpr int max_downlink_period = two_days;
+        constexpr int max_downlink_period = ten_minutes;
 
         constexpr int baud = 19200;
         constexpr size_t buffer_size = 63;
@@ -50,89 +48,75 @@ namespace constants
         constexpr size_t arg2_len = 4;
         constexpr size_t command_len = opcode_len + arg1_len + arg2_len;
         constexpr size_t max_conseq_read = 3;
-        
+
         constexpr int num_initial_downlinks = 2;
 
-        constexpr uint8_t mission_mode[opcode_len] =               {0x00,0x00};
-        constexpr uint8_t burnwire_fire[opcode_len] =              {0x02,0x00};
-        constexpr uint8_t burnwire_time[opcode_len] =              {0x03,0x00};
-        constexpr uint8_t burnwire_timeout[opcode_len] =           {0x04,0x00};
-        constexpr uint8_t rockblock_downlink_period[opcode_len] =  {0x05,0x00};
-        constexpr uint8_t request_image_fragment[opcode_len] =     {0x06,0x00};
-        constexpr uint8_t camera_take_photo[opcode_len] =          {0x07,0x00};
-        constexpr uint8_t camera_turn_on[opcode_len] =             {0x0B,0x00};
-        constexpr uint8_t camera_turn_off[opcode_len] =            {0x0C,0x00};
+        constexpr uint8_t mission_mode[opcode_len] = {0x00, 0x00};
+        constexpr uint8_t burnwire_fire[opcode_len] = {0x02, 0x00};
+        constexpr uint8_t burnwire_time[opcode_len] = {0x03, 0x00};
+        constexpr uint8_t burnwire_timeout[opcode_len] = {0x04, 0x00};
+        constexpr uint8_t rockblock_downlink_period[opcode_len] = {0x05, 0x00};
+        constexpr uint8_t request_image_fragment[opcode_len] = {0x06, 0x00};
+        constexpr uint8_t camera_take_photo[opcode_len] = {0x07, 0x00};
+        constexpr uint8_t camera_turn_on[opcode_len] = {0x0B, 0x00};
+        constexpr uint8_t camera_turn_off[opcode_len] = {0x0C, 0x00};
 
-        constexpr uint8_t initialization[arg1_len] ={0x00,0x00,0x00,0x00};
-        constexpr uint8_t deployment[arg1_len]=     {0x02,0x00,0x00,0x00};
-        constexpr uint8_t standby[arg1_len] =       {0x03,0x00,0x00,0x00};
-        constexpr uint8_t true_arg[arg1_len] =      {0x01,0x00,0x00,0x00};
-        constexpr uint8_t false_arg[arg1_len] =     {0x00,0x00,0x00,0x00};
-        constexpr uint8_t active[arg1_len] =        {0x01,0x00,0x00,0x00};
-        constexpr uint8_t inactive[arg1_len] =      {0x00,0x00,0x00,0x00};
+        constexpr uint8_t initialization[arg1_len] = {0x00, 0x00, 0x00, 0x00};
+        constexpr uint8_t deployment[arg1_len] = {0x02, 0x00, 0x00, 0x00};
+        constexpr uint8_t standby[arg1_len] = {0x03, 0x00, 0x00, 0x00};
+        constexpr uint8_t true_arg[arg1_len] = {0x01, 0x00, 0x00, 0x00};
+        constexpr uint8_t false_arg[arg1_len] = {0x00, 0x00, 0x00, 0x00};
+        constexpr uint8_t active[arg1_len] = {0x01, 0x00, 0x00, 0x00};
+        constexpr uint8_t inactive[arg1_len] = {0x00, 0x00, 0x00, 0x00};
 
-        constexpr uint8_t no_arg_2[arg2_len] =      {0x00,0x00,0x00,0x00};
+        constexpr uint8_t no_arg_2[arg2_len] = {0x00, 0x00, 0x00, 0x00};
 
         constexpr uint8_t mission_mode_deployment[command_len] = {
-            mission_mode[0], mission_mode[1], 
+            mission_mode[0], mission_mode[1],
             deployment[0], deployment[1], deployment[2], deployment[3],
-            no_arg_2[0], no_arg_2[1], no_arg_2[2], no_arg_2[3]
-        };
+            no_arg_2[0], no_arg_2[1], no_arg_2[2], no_arg_2[3]};
 
         constexpr uint8_t mission_mode_standby[command_len] = {
-            mission_mode[0], mission_mode[1], 
+            mission_mode[0], mission_mode[1],
             standby[0], standby[1], standby[2], standby[3],
-            no_arg_2[0], no_arg_2[1], no_arg_2[2], no_arg_2[3]
-        };   
- 
+            no_arg_2[0], no_arg_2[1], no_arg_2[2], no_arg_2[3]};
+
         constexpr uint8_t camera_take_photo_true[command_len] = {
-            camera_take_photo[0], camera_take_photo[1], 
+            camera_take_photo[0], camera_take_photo[1],
             true_arg[0], true_arg[1], true_arg[2], true_arg[3],
-            no_arg_2[0],  no_arg_2[1],  no_arg_2[2],  no_arg_2[3]
-        };    
+            no_arg_2[0], no_arg_2[1], no_arg_2[2], no_arg_2[3]};
 
         constexpr uint8_t camera_take_photo_false[command_len] = {
-            camera_take_photo[0], camera_take_photo[1], 
+            camera_take_photo[0], camera_take_photo[1],
             false_arg[0], false_arg[1], false_arg[2], false_arg[3],
-            no_arg_2[0],  no_arg_2[1],  no_arg_2[2],  no_arg_2[3]
-        };  
+            no_arg_2[0], no_arg_2[1], no_arg_2[2], no_arg_2[3]};
 
         constexpr uint8_t camera_turn_on_true[command_len] = {
-            camera_turn_on[0], camera_turn_on[1], 
+            camera_turn_on[0], camera_turn_on[1],
             true_arg[0], true_arg[1], true_arg[2], true_arg[3],
-            no_arg_2[0],  no_arg_2[1],  no_arg_2[2],  no_arg_2[3]
-        };
+            no_arg_2[0], no_arg_2[1], no_arg_2[2], no_arg_2[3]};
 
         constexpr uint8_t camera_turn_off_true[command_len] = {
-            camera_turn_off[0], camera_turn_off[1], 
+            camera_turn_off[0], camera_turn_off[1],
             true_arg[0], true_arg[1], true_arg[2], true_arg[3],
-            no_arg_2[0],  no_arg_2[1],  no_arg_2[2],  no_arg_2[3]
-        };
+            no_arg_2[0], no_arg_2[1], no_arg_2[2], no_arg_2[3]};
 
         constexpr int known_commands[num_commands][command_len] = {
-            {mission_mode_deployment[0], mission_mode_deployment[1], mission_mode_deployment[2], mission_mode_deployment[3], mission_mode_deployment[4], mission_mode_deployment[5],mission_mode_deployment[6], mission_mode_deployment[7], mission_mode_deployment[8], mission_mode_deployment[9]},
+            {mission_mode_deployment[0], mission_mode_deployment[1], mission_mode_deployment[2], mission_mode_deployment[3], mission_mode_deployment[4], mission_mode_deployment[5], mission_mode_deployment[6], mission_mode_deployment[7], mission_mode_deployment[8], mission_mode_deployment[9]},
             {mission_mode_standby[0], mission_mode_standby[1], mission_mode_standby[2], mission_mode_standby[3], mission_mode_standby[4], mission_mode_standby[5], mission_mode_standby[6], mission_mode_standby[7], mission_mode_standby[8], mission_mode_standby[9]},
             {camera_take_photo_true[0], camera_take_photo_true[1], camera_take_photo_true[2], camera_take_photo_true[3], camera_take_photo_true[4], camera_take_photo_true[5], camera_take_photo_true[6], camera_take_photo_true[7], camera_take_photo_true[8], camera_take_photo_true[9]},
             {camera_take_photo_false[0], camera_take_photo_false[1], camera_take_photo_false[2], camera_take_photo_false[3], camera_take_photo_false[4], camera_take_photo_false[5], camera_take_photo_false[6], camera_take_photo_false[7], camera_take_photo_false[8], camera_take_photo_false[9]},
             {camera_turn_on_true[0], camera_turn_on_true[1], camera_turn_on_true[2], camera_turn_on_true[3], camera_turn_on_true[4], camera_turn_on_true[5], camera_turn_on_true[6], camera_turn_on_true[7], camera_turn_on_true[8], camera_turn_on_true[9]},
-            {camera_turn_off_true[0], camera_turn_off_true[1], camera_turn_off_true[2], camera_turn_off_true[3], camera_turn_off_true[4], camera_turn_off_true[5], camera_turn_off_true[6], camera_turn_off_true[7], camera_turn_off_true[8], camera_turn_off_true[9]}
-        };
+            {camera_turn_off_true[0], camera_turn_off_true[1], camera_turn_off_true[2], camera_turn_off_true[3], camera_turn_off_true[4], camera_turn_off_true[5], camera_turn_off_true[6], camera_turn_off_true[7], camera_turn_off_true[8], camera_turn_off_true[9]}};
     }
     namespace camera
     {
-        constexpr int power_on_pin = 24;
         constexpr int content_length = 64;
         constexpr int bytes_allocated_serial_opcode = 2;
         constexpr int bytes_allocated_fragment = 4;
-        constexpr int tx = 35;
-        constexpr int rx = 34;
     }
-    namespace button
+    namespace timecontrol
     {
-        //low when door is opened
-        constexpr int button_pin = 31;
-    }
-    namespace timecontrol{
         // Environment-based initializations of the control loop time.
         // control_cycle_time is the value actually used for timing. The
         // other constants are just informational.
@@ -141,7 +125,7 @@ namespace constants
         constexpr unsigned int control_cycle_time = control_cycle_time_us;
 
         static constexpr unsigned int base_offset = 30000;
-        // Control cycle time offsets, in microseconds 
+        // Control cycle time offsets, in microseconds
         static constexpr unsigned int acs_monitor_offset = 0;
         static constexpr unsigned int battery_monitor_offset = 1 * base_offset;
         static constexpr unsigned int button_monitor_offset = 2 * base_offset;
@@ -153,7 +137,7 @@ namespace constants
         static constexpr unsigned int normal_report_monitor_offset = 8 * base_offset;
         static constexpr unsigned int photoresistor_monitor_offset = 9 * base_offset;
         static constexpr unsigned int temperature_monitor_offset = 10 * base_offset;
-        
+
         static constexpr unsigned int acs_control_task_offset = 11 * base_offset;
         static constexpr unsigned int burnwire_control_task_offset = 12 * base_offset;
         static constexpr unsigned int camera_control_task_offset = 13 * base_offset;
@@ -162,6 +146,28 @@ namespace constants
 
         static constexpr unsigned int mission_manager_offset = 16 * base_offset;
     }
+    namespace gps
+    {
+        constexpr int baud = 9600;
+        constexpr int mand_deploy = 89062;
+        constexpr int high_altitude = 80000;
+        constexpr uint8_t SetCfgNav5[] = {0xB5, 0x62, 0x06, 0x24, 0x24, 0x00, 0x01, 0x01, // Note two 0x01's.  Don't know if the bitmask is little-endian or not.
+                                          0x06, 0x03, 0x00, 0x00, 0x00, 0x00, 0x10, 0x27, // Set dyn mode to 6 - airborne <1g.  That's plenty for balloons.
+                                          0x00, 0x00, 0x05, 0x00, 0xFA, 0x00, 0xFA, 0x00,
+                                          0x64, 0x00, 0x2C, 0x01, 0x00, 0x3C, 0x00, 0x00, // Note, Flextrack has 0x00 where the T-Beam defaults to 0x3c.
+                                          0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+                                          0x00, 0x00, 0x56, 0x76};
+        constexpr uint8_t CheckNav[] = {0xB5, 0x62, 0x06, 0x24, 0x00, 0x00, 0x2A, 0x84};
+    }
+    namespace sensor
+    {
+        constexpr int collect = 3;
+    }
+    namespace video
+    {
+        constexpr int pin = 2;
+        constexpr int four_hours = 14400000;
+    }  
 };
 
 #endif

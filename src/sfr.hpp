@@ -12,6 +12,7 @@
 #include "MissionManager.hpp"
 #include <SD.h>
 #include <Adafruit_VC0706.h>
+#include <TinyGPS.h>
 #include <iostream>
 #include <string>
 #include <sstream>
@@ -20,6 +21,10 @@
 
 namespace sfr
 {
+    namespace timer
+    {
+        extern float start_time;
+    }
     namespace photoresistor
     {
         extern bool covered;
@@ -96,6 +101,11 @@ namespace sfr
     namespace button
     {
         extern bool pressed;
+    }
+    namespace gps{
+        extern float altitude;
+        extern std::deque<float> altitude_buffer;
+        extern float altitude_average;
     }
 };
 

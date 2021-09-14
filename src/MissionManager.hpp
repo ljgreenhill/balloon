@@ -11,8 +11,10 @@ class MissionManager : public TimedControlTask<void>{
         void execute();
         void dispatch_standby();
         void dispatch_deployment();
+        void dispatch_high_altitude();
 
         static void transition_to_standby();
+        static void transition_to_high_altitude();
         static void transition_to_deployment();
 };
 
