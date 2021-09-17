@@ -1,8 +1,11 @@
 #include "GPSMonitor.hpp"
 
-GPSMonitor::GPSMonitor(unsigned int offset): TimedControlTask<void>(offset){
+TinyGPS gps;
+
+GPSMonitor::GPSMonitor(unsigned int offset) : TimedControlTask<void>(offset)
+{
     Serial3.begin(constants::gps::baud);
-    while(!ready){
+    /*while(!ready){
         Serial3.write((uint8_t *)&constants::gps::CheckNav, sizeof(constants::gps::CheckNav));
 
         Serial3.flush();
@@ -16,28 +19,39 @@ GPSMonitor::GPSMonitor(unsigned int offset): TimedControlTask<void>(offset){
         Serial3.write((uint8_t *)&constants::gps::CheckNav, sizeof(constants::gps::CheckNav));
 
         Serial3.flush();
-        delay(200);
+        delay(1000);
 
         while(Serial3.available()){
             if(Serial3.read() == 255 && Serial3.read() == 255 && Serial3.read() == 6 && Serial3.read() == 3){
                 ready = true;
             }
         }
-    } 
+    } */
 }
 
-void GPSMonitor::execute(){ 
-    while(Serial3.available()){
-        gps.encode(Serial3.read());
-    }
-
-    float reading = gps.f_altitude();
-    if(reading != 1000000){
-        sfr::gps::altitude_buffer.push_front(reading);
-        if (sfr::gps::altitude_buffer.size() > constants::sensor::collect){
-            sfr::gps::altitude_buffer.pop_back();
+void GPSMonitor::execute()
+{
+    Serial.println(sfr::gps::altitude);
+    Serial.println(sfr::gps::altitude_average);
+    for (unsigned long start = millis(); millis() - start < 1000;)
+    {
+        while (Serial3.available())
+        {
+            char c = Serial3.read();
+            if (gps.encode(c)) // Did a new valid sentence come in?
+                sfr::gps::new_data = true;
         }
-        float altitude_sum = std::accumulate(sfr::gps::altitude_buffer.begin(), sfr::gps::altitude_buffer.end(), 0.0);
-        sfr::gps::altitude_average = altitude_sum / sfr::gps::altitude_buffer.size();
+    }
+    if (sfr::gps::new_data)
+    {
+        float flat, flon;
+        gps.f_get_position(&flat, &flon);
+        sfr::gps::latitude = flat == TinyGPS::GPS_INVALID_F_ANGLE ? 0.0 : flat, 6;
+        sfr::gps::longitude = flon == TinyGPS::GPS_INVALID_F_ANGLE ? 0.0 : flon, 6;
+        sfr::gps::altitude = gps.f_altitude() == TinyGPS::GPS_INVALID_ALTITUDE ? 0 : gps.f_altitude();
+
+        MissionManager::add_sensor_value(sfr::gps::latitude_buffer, sfr::gps::latitude, sfr::gps::latitude_average);
+        MissionManager::add_sensor_value(sfr::gps::longitude_buffer, sfr::gps::longitude, sfr::gps::longitude_average);
+        MissionManager::add_sensor_value(sfr::gps::altitude_buffer, sfr::gps::altitude, sfr::gps::altitude_average);
     }
 }

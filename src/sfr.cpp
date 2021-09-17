@@ -88,5 +88,12 @@ namespace sfr
         float altitude = 0.0;
         std::deque<float> altitude_buffer;
         float altitude_average = 0.0;
+        float latitude = 0.0;
+        std::deque<float> latitude_buffer;
+        float latitude_average = 0.0;
+        float longitude = 0.0;
+        std::deque<float> longitude_buffer;
+        float longitude_average = 0.0;
+        bool new_data = false;
     }
 }

@@ -102,10 +102,18 @@ namespace sfr
     {
         extern bool pressed;
     }
-    namespace gps{
+    namespace gps
+    {
         extern float altitude;
         extern std::deque<float> altitude_buffer;
         extern float altitude_average;
+        extern float latitude;
+        extern std::deque<float> latitude_buffer;
+        extern float latitude_average;
+        extern float longitude;
+        extern std::deque<float> longitude_buffer;
+        extern float longitude_average;
+        extern bool new_data;
     }
 };
 

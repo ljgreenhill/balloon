@@ -1,26 +1,24 @@
 #include "MainControlLoop.hpp"
 
 MainControlLoop::MainControlLoop()
-: ControlTask<void>(),
-clock_manager(constants::timecontrol::control_cycle_time), 
-camera_report_monitor(constants::timecontrol::camera_report_monitor_offset),
-command_monitor(constants::timecontrol::command_monitor_offset),
-normal_report_monitor(constants::timecontrol::normal_report_monitor_offset),
-photoresistor_monitor(constants::timecontrol::photoresistor_monitor_offset),
-burnwire_control_task(constants::timecontrol::burnwire_control_task_offset),
-camera_control_task(constants::timecontrol::camera_control_task_offset),
-rockblock_control_task(constants::timecontrol::rockblock_control_task_offset),
-mission_manager(constants::timecontrol::mission_manager_offset),
-video_control_task(constants::timecontrol::rockblock_control_task_offset),
-gps_monitor(constants::timecontrol::rockblock_control_task_offset)
+    : ControlTask<void>(),
+      clock_manager(constants::timecontrol::control_cycle_time),
+      camera_report_monitor(constants::timecontrol::camera_report_monitor_offset),
+      command_monitor(constants::timecontrol::command_monitor_offset),
+      normal_report_monitor(constants::timecontrol::normal_report_monitor_offset),
+      photoresistor_monitor(constants::timecontrol::photoresistor_monitor_offset),
+      burnwire_control_task(constants::timecontrol::burnwire_control_task_offset),
+      camera_control_task(constants::timecontrol::camera_control_task_offset),
+      rockblock_control_task(constants::timecontrol::rockblock_control_task_offset),
+      mission_manager(constants::timecontrol::mission_manager_offset),
+      video_control_task(constants::timecontrol::rockblock_control_task_offset),
+      gps_monitor(constants::timecontrol::rockblock_control_task_offset)
 {
     delay(1000);
 }
 
 void MainControlLoop::execute()
 {
-    Serial.println("Executing");
-    
     clock_manager.execute();
 
     camera_report_monitor.execute_on_time();
@@ -34,7 +32,9 @@ void MainControlLoop::execute()
     rockblock_control_task.execute_on_time();
     video_control_task.execute_on_time();
 
-    mission_manager.execute_on_time(); 
+    mission_manager.execute_on_time();
 
     Serial.println(sfr::gps::altitude_average);
+    Serial.println(sfr::gps::longitude_average);
+    Serial.println(sfr::gps::latitude_average);
 }
