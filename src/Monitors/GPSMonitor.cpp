@@ -38,7 +38,7 @@ void GPSMonitor::execute()
         while (Serial3.available())
         {
             char c = Serial3.read();
-            if (gps.encode(c)) // Did a new valid sentence come in?
+            if (gps.encode(c))
                 sfr::gps::new_data = true;
         }
     }

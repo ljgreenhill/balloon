@@ -42,7 +42,7 @@ namespace constants
         constexpr size_t packet_size = 70;
         constexpr size_t num_commas = 5;
         constexpr size_t max_iter = 200;
-        constexpr size_t num_commands = 6;
+        constexpr size_t num_commands = 3;
         constexpr size_t opcode_len = 2;
         constexpr size_t arg1_len = 4;
         constexpr size_t arg2_len = 4;
@@ -55,21 +55,27 @@ namespace constants
         constexpr uint8_t burnwire_fire[opcode_len] = {0x02, 0x00};
         constexpr uint8_t burnwire_time[opcode_len] = {0x03, 0x00};
         constexpr uint8_t burnwire_timeout[opcode_len] = {0x04, 0x00};
-        constexpr uint8_t rockblock_downlink_period[opcode_len] = {0x05, 0x00};
-        constexpr uint8_t request_image_fragment[opcode_len] = {0x06, 0x00};
-        constexpr uint8_t camera_take_photo[opcode_len] = {0x07, 0x00};
-        constexpr uint8_t camera_turn_on[opcode_len] = {0x0B, 0x00};
-        constexpr uint8_t camera_turn_off[opcode_len] = {0x0C, 0x00};
 
-        constexpr uint8_t initialization[arg1_len] = {0x00, 0x00, 0x00, 0x00};
+        constexpr uint8_t rockblock_downlink_period[opcode_len] = {0x05, 0x00};
+
+        constexpr uint8_t request_image_fragment[opcode_len] = {0x06, 0x00};
+
+        constexpr uint8_t standby[arg1_len] = {0x00, 0x00, 0x00, 0x00};
+        constexpr uint8_t high_altitude[arg1_len] = {0x01, 0x00, 0x00, 0x00};
         constexpr uint8_t deployment[arg1_len] = {0x02, 0x00, 0x00, 0x00};
-        constexpr uint8_t standby[arg1_len] = {0x03, 0x00, 0x00, 0x00};
+
         constexpr uint8_t true_arg[arg1_len] = {0x01, 0x00, 0x00, 0x00};
         constexpr uint8_t false_arg[arg1_len] = {0x00, 0x00, 0x00, 0x00};
+
         constexpr uint8_t active[arg1_len] = {0x01, 0x00, 0x00, 0x00};
         constexpr uint8_t inactive[arg1_len] = {0x00, 0x00, 0x00, 0x00};
 
         constexpr uint8_t no_arg_2[arg2_len] = {0x00, 0x00, 0x00, 0x00};
+
+        constexpr uint8_t mission_mode_high_altitude[command_len] = {
+            mission_mode[0], mission_mode[1],
+            high_altitude[0], high_altitude[1], high_altitude[2], high_altitude[3],
+            no_arg_2[0], no_arg_2[1], no_arg_2[2], no_arg_2[3]};
 
         constexpr uint8_t mission_mode_deployment[command_len] = {
             mission_mode[0], mission_mode[1],
@@ -81,33 +87,10 @@ namespace constants
             standby[0], standby[1], standby[2], standby[3],
             no_arg_2[0], no_arg_2[1], no_arg_2[2], no_arg_2[3]};
 
-        constexpr uint8_t camera_take_photo_true[command_len] = {
-            camera_take_photo[0], camera_take_photo[1],
-            true_arg[0], true_arg[1], true_arg[2], true_arg[3],
-            no_arg_2[0], no_arg_2[1], no_arg_2[2], no_arg_2[3]};
-
-        constexpr uint8_t camera_take_photo_false[command_len] = {
-            camera_take_photo[0], camera_take_photo[1],
-            false_arg[0], false_arg[1], false_arg[2], false_arg[3],
-            no_arg_2[0], no_arg_2[1], no_arg_2[2], no_arg_2[3]};
-
-        constexpr uint8_t camera_turn_on_true[command_len] = {
-            camera_turn_on[0], camera_turn_on[1],
-            true_arg[0], true_arg[1], true_arg[2], true_arg[3],
-            no_arg_2[0], no_arg_2[1], no_arg_2[2], no_arg_2[3]};
-
-        constexpr uint8_t camera_turn_off_true[command_len] = {
-            camera_turn_off[0], camera_turn_off[1],
-            true_arg[0], true_arg[1], true_arg[2], true_arg[3],
-            no_arg_2[0], no_arg_2[1], no_arg_2[2], no_arg_2[3]};
-
         constexpr int known_commands[num_commands][command_len] = {
             {mission_mode_deployment[0], mission_mode_deployment[1], mission_mode_deployment[2], mission_mode_deployment[3], mission_mode_deployment[4], mission_mode_deployment[5], mission_mode_deployment[6], mission_mode_deployment[7], mission_mode_deployment[8], mission_mode_deployment[9]},
             {mission_mode_standby[0], mission_mode_standby[1], mission_mode_standby[2], mission_mode_standby[3], mission_mode_standby[4], mission_mode_standby[5], mission_mode_standby[6], mission_mode_standby[7], mission_mode_standby[8], mission_mode_standby[9]},
-            {camera_take_photo_true[0], camera_take_photo_true[1], camera_take_photo_true[2], camera_take_photo_true[3], camera_take_photo_true[4], camera_take_photo_true[5], camera_take_photo_true[6], camera_take_photo_true[7], camera_take_photo_true[8], camera_take_photo_true[9]},
-            {camera_take_photo_false[0], camera_take_photo_false[1], camera_take_photo_false[2], camera_take_photo_false[3], camera_take_photo_false[4], camera_take_photo_false[5], camera_take_photo_false[6], camera_take_photo_false[7], camera_take_photo_false[8], camera_take_photo_false[9]},
-            {camera_turn_on_true[0], camera_turn_on_true[1], camera_turn_on_true[2], camera_turn_on_true[3], camera_turn_on_true[4], camera_turn_on_true[5], camera_turn_on_true[6], camera_turn_on_true[7], camera_turn_on_true[8], camera_turn_on_true[9]},
-            {camera_turn_off_true[0], camera_turn_off_true[1], camera_turn_off_true[2], camera_turn_off_true[3], camera_turn_off_true[4], camera_turn_off_true[5], camera_turn_off_true[6], camera_turn_off_true[7], camera_turn_off_true[8], camera_turn_off_true[9]}};
+            {mission_mode_high_altitude[0], mission_mode_high_altitude[1], mission_mode_high_altitude[2], mission_mode_high_altitude[3], mission_mode_high_altitude[4], mission_mode_high_altitude[5], mission_mode_high_altitude[6], mission_mode_high_altitude[7], mission_mode_high_altitude[8], mission_mode_high_altitude[9]}};
     }
     namespace camera
     {
@@ -152,12 +135,19 @@ namespace constants
         constexpr int mand_deploy = 89062;
         constexpr int high_altitude = 80000;
         constexpr uint8_t SetCfgNav5[] = {0xB5, 0x62, 0x06, 0x24, 0x24, 0x00, 0x01, 0x01, // Note two 0x01's.  Don't know if the bitmask is little-endian or not.
-                                          0x06, 0x03, 0x00, 0x00, 0x00, 0x00, 0x10, 0x27, // Set dyn mode to 6 - airborne <1g.  That's plenty for balloons.
-                                          0x00, 0x00, 0x05, 0x00, 0xFA, 0x00, 0xFA, 0x00,
-                                          0x64, 0x00, 0x2C, 0x01, 0x00, 0x3C, 0x00, 0x00, // Note, Flextrack has 0x00 where the T-Beam defaults to 0x3c.
-                                          0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-                                          0x00, 0x00, 0x56, 0x76};
+                                        0x06, 0x03, 0x00, 0x00, 0x00, 0x00, 0x10, 0x27, // Set dyn mode to 6 - airborne <1g.  That's plenty for balloons.
+                                        0x00, 0x00, 0x05, 0x00, 0xFA, 0x00, 0xFA, 0x00,
+                                        0x64, 0x00, 0x2C, 0x01, 0x00, 0x3C, 0x00, 0x00, // Note, Flextrack has 0x00 where the T-Beam defaults to 0x3c.
+                                        0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+                                        0x00, 0x00, 0x56, 0x76};
         constexpr uint8_t CheckNav[] = {0xB5, 0x62, 0x06, 0x24, 0x00, 0x00, 0x2A, 0x84};
+        constexpr float min_altitude_average = 0;
+        constexpr float max_altitude_average = 2000000;
+        constexpr float min_longitude_average = -180000000;
+        constexpr float max_longitude_average = 180000000;
+        constexpr float min_latitude_average = -90000000;
+        constexpr float max_latitude_average = 90000000;
+
     }
     namespace sensor
     {
@@ -167,7 +157,7 @@ namespace constants
     {
         constexpr int pin = 2;
         constexpr int four_hours = 14400000;
-    }  
+    }
 };
 
 #endif

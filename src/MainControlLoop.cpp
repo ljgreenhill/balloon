@@ -33,8 +33,4 @@ void MainControlLoop::execute()
     video_control_task.execute_on_time();
 
     mission_manager.execute_on_time();
-
-    Serial.println(sfr::gps::altitude_average);
-    Serial.println(sfr::gps::longitude_average);
-    Serial.println(sfr::gps::latitude_average);
 }
