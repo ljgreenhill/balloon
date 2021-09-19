@@ -218,7 +218,6 @@ void test_rockblock()
   mission_manager.execute();
   TEST_ASSERT_EQUAL(burnwire_mode_type::standby, sfr::burnwire::mode);
   TEST_ASSERT_EQUAL(mission_mode_type::standby, sfr::mission::mode);
-
   
   sim.insert("00000200000000000000");
   sfr::rockblock::downlink_period = 0;

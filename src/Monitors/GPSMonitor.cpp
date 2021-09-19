@@ -5,28 +5,10 @@ TinyGPS gps;
 GPSMonitor::GPSMonitor(unsigned int offset) : TimedControlTask<void>(offset)
 {
     Serial3.begin(constants::gps::baud);
-    /*while(!ready){
-        Serial3.write((uint8_t *)&constants::gps::CheckNav, sizeof(constants::gps::CheckNav));
+    delay(1000);
 
-        Serial3.flush();
-        delay(200);
-
-        Serial3.write( (uint8_t *)&constants::gps::SetCfgNav5, sizeof(constants::gps::SetCfgNav5));
-
-        Serial3.flush();
-        delay(200);
-
-        Serial3.write((uint8_t *)&constants::gps::CheckNav, sizeof(constants::gps::CheckNav));
-
-        Serial3.flush();
-        delay(1000);
-
-        while(Serial3.available()){
-            if(Serial3.read() == 255 && Serial3.read() == 255 && Serial3.read() == 6 && Serial3.read() == 3){
-                ready = true;
-            }
-        }
-    } */
+    Serial3.write((unsigned char *)&constants::gps::SetCfgNav5, sizeof(constants::gps::SetCfgNav5));
+    delay(1000);
 }
 
 void GPSMonitor::execute()
@@ -44,8 +26,8 @@ void GPSMonitor::execute()
     {
         float flat, flon;
         gps.f_get_position(&flat, &flon);
-        sfr::gps::latitude = flat == TinyGPS::GPS_INVALID_F_ANGLE ? 0.0 : flat, 6;
-        sfr::gps::longitude = flon == TinyGPS::GPS_INVALID_F_ANGLE ? 0.0 : flon, 6;
+        sfr::gps::latitude = flat == TinyGPS::GPS_INVALID_F_ANGLE ? 0.0 : flat;
+        sfr::gps::longitude = flon == TinyGPS::GPS_INVALID_F_ANGLE ? 0.0 : flon;
         sfr::gps::altitude = gps.f_altitude() == TinyGPS::GPS_INVALID_ALTITUDE ? 0 : gps.f_altitude();
 
         MissionManager::add_sensor_value(sfr::gps::latitude_buffer, sfr::gps::latitude, sfr::gps::latitude_average);

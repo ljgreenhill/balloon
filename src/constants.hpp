@@ -15,7 +15,7 @@ namespace constants
     namespace burnwire
     {
         constexpr int pin = 30;
-        constexpr int burn_wait = 1000;
+        constexpr int burn_wait = 500;
         constexpr int max_attempts = 10;
         constexpr int camera_max_attempts = 50;
         constexpr int min_burnwire_time = 0;
@@ -141,19 +141,19 @@ namespace constants
         constexpr int baud = 9600;
         constexpr int mand_deploy = 89062;
         constexpr int high_altitude = 80000;
-        constexpr uint8_t SetCfgNav5[] = {0xB5, 0x62, 0x06, 0x24, 0x24, 0x00, 0x01, 0x01, // Note two 0x01's.  Don't know if the bitmask is little-endian or not.
-                                        0x06, 0x03, 0x00, 0x00, 0x00, 0x00, 0x10, 0x27, // Set dyn mode to 6 - airborne <1g.  That's plenty for balloons.
-                                        0x00, 0x00, 0x05, 0x00, 0xFA, 0x00, 0xFA, 0x00,
-                                        0x64, 0x00, 0x2C, 0x01, 0x00, 0x3C, 0x00, 0x00, // Note, Flextrack has 0x00 where the T-Beam defaults to 0x3c.
-                                        0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-                                        0x00, 0x00, 0x56, 0x76};
+        const unsigned char SetCfgNav5[]  = {0xB5, 0x62, 0x06, 0x24, 0x24, 0x00, 0x01, 0x01, 
+                                             0x06, 0x03, 0x00, 0x00, 0x00, 0x00, 0x10, 0x27, 
+                                             0x00, 0x00, 0x05, 0x00, 0xFA, 0x00, 0xFA, 0x00, 
+                                             0x64, 0x00, 0x2C, 0x01, 0x00, 0x3C, 0x00, 0x00, 
+                                             0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
+                                             0x00, 0x00, 0x56, 0x76};
         constexpr uint8_t CheckNav[] = {0xB5, 0x62, 0x06, 0x24, 0x00, 0x00, 0x2A, 0x84};
         constexpr float min_altitude_average = 0;
         constexpr float max_altitude_average = 2000000;
-        constexpr float min_longitude_average = -180000000;
-        constexpr float max_longitude_average = 180000000;
-        constexpr float min_latitude_average = -90000000;
-        constexpr float max_latitude_average = 90000000;
+        constexpr float min_longitude_average = -180;
+        constexpr float max_longitude_average = 180;
+        constexpr float min_latitude_average = -90;
+        constexpr float max_latitude_average = 90;
 
     }
     namespace sensor
