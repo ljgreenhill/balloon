@@ -33,7 +33,7 @@ void MissionManager::dispatch_standby()
     {
         transition_to_deployment();
     }
-    if (sfr::gps::altitude_average > constants::gps::high_altitude)
+    else if (sfr::gps::altitude_average > constants::gps::high_altitude)
     {
         transition_to_high_altitude();
     }
@@ -49,8 +49,6 @@ void MissionManager::dispatch_high_altitude()
 
 void MissionManager::dispatch_deployment()
 {
-    Serial.println(sfr::burnwire::attempts);
-    Serial.println(constants::burnwire::max_attempts);
     if (!sfr::photoresistor::covered)
     {
         sfr::camera::take_photo = true;
@@ -58,7 +56,6 @@ void MissionManager::dispatch_deployment()
         transition_to_post_deployment();
     }
     else if (sfr::burnwire::attempts > constants::burnwire::max_attempts){
-        Serial.println("switch to standby");
         transition_to_post_deployment();
     }
 }
