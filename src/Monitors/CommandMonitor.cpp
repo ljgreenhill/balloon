@@ -44,6 +44,10 @@ void CommandMonitor::dispatch_change_mission_mode()
     {
         MissionManager::transition_to_high_altitude();
     }
+    else if (sfr::rockblock::f_arg_1 == get_decimal_arg(constants::rockblock::post_deployment))
+    {
+        MissionManager::transition_to_post_deployment();
+    }
 }
 
 void CommandMonitor::dispatch_change_true_false(bool &value)

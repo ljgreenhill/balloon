@@ -13,10 +13,12 @@ public:
     void dispatch_standby();
     void dispatch_deployment();
     void dispatch_high_altitude();
+    void dispatch_post_deployment();
 
     static void transition_to_standby();
     static void transition_to_high_altitude();
     static void transition_to_deployment();
+    static void transition_to_post_deployment();
     static void add_sensor_value(std::deque<float> buffer, float sensor_reading, float sensor_average);
 };
 

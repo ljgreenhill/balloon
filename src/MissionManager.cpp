@@ -21,6 +21,9 @@ void MissionManager::execute()
     case mission_mode_type::deployment:
         dispatch_deployment();
         break;
+    case mission_mode_type::post_deployment:
+        dispatch_post_deployment();
+        break;
     }
 }
 
@@ -46,13 +49,21 @@ void MissionManager::dispatch_high_altitude()
 
 void MissionManager::dispatch_deployment()
 {
-    if (!sfr::button::pressed && !sfr::photoresistor::covered)
+    Serial.println(sfr::burnwire::attempts);
+    Serial.println(constants::burnwire::max_attempts);
+    if (!sfr::photoresistor::covered)
     {
         sfr::camera::take_photo = true;
         BurnwireControlTask::transition_to_standby();
-        transition_to_standby();
+        transition_to_post_deployment();
+    }
+    else if (sfr::burnwire::attempts > constants::burnwire::max_attempts){
+        Serial.println("switch to standby");
+        transition_to_post_deployment();
     }
 }
+
+void MissionManager::dispatch_post_deployment(){}
 
 void MissionManager::transition_to_standby()
 {
@@ -73,6 +84,14 @@ void MissionManager::transition_to_high_altitude()
 {
     sfr::rockblock::downlink_period = constants::rockblock::one_minute;
     sfr::rockblock::camera_downlink_period = constants::rockblock::one_minute;
+    sfr::mission::mode = mission_mode_type::high_altitude;
+}
+
+void MissionManager::transition_to_post_deployment()
+{
+    sfr::rockblock::downlink_period = constants::rockblock::ten_minutes;
+    sfr::rockblock::camera_downlink_period = constants::rockblock::ten_minutes;
+    sfr::mission::mode = mission_mode_type::post_deployment;
 }
 
 void MissionManager::add_sensor_value(std::deque<float> buffer, float sensor_reading, float sensor_average)

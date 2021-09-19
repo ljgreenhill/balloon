@@ -79,10 +79,6 @@ namespace sfr
         bool last_timed_out = false;
         int num_downlinks = 0;
     }
-    namespace button
-    {
-        bool pressed = true;
-    }
     namespace gps
     {
         float altitude = 0.0;

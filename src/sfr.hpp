@@ -98,10 +98,6 @@ namespace sfr
         extern bool last_timed_out;
         extern int num_downlinks;
     }
-    namespace button
-    {
-        extern bool pressed;
-    }
     namespace gps
     {
         extern float altitude;

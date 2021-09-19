@@ -7,10 +7,8 @@ VideoControlTask::VideoControlTask(unsigned int offset): TimedControlTask<void>(
 
 void VideoControlTask::execute(){    
     if(millis() - sfr::timer::start_time > constants::video::four_hours){
-        Serial.println("Cameras off");
         digitalWrite(constants::video::pin, LOW);
     } else{
-        Serial.println("Cameras on");
         digitalWrite(constants::video::pin, HIGH);
     }
 }

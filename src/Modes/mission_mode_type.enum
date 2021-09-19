@@ -4,6 +4,7 @@
 enum class mission_mode_type: unsigned char {
     deployment,
     high_altitude,
-    standby};
+    standby,
+    post_deployment};
 
 #endif

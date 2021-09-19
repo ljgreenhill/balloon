@@ -42,7 +42,7 @@ namespace constants
         constexpr size_t packet_size = 70;
         constexpr size_t num_commas = 5;
         constexpr size_t max_iter = 200;
-        constexpr size_t num_commands = 3;
+        constexpr size_t num_commands = 4;
         constexpr size_t opcode_len = 2;
         constexpr size_t arg1_len = 4;
         constexpr size_t arg2_len = 4;
@@ -63,6 +63,7 @@ namespace constants
         constexpr uint8_t standby[arg1_len] = {0x00, 0x00, 0x00, 0x00};
         constexpr uint8_t high_altitude[arg1_len] = {0x01, 0x00, 0x00, 0x00};
         constexpr uint8_t deployment[arg1_len] = {0x02, 0x00, 0x00, 0x00};
+        constexpr uint8_t post_deployment[arg1_len] = {0x03, 0x00, 0x00, 0x00};
 
         constexpr uint8_t true_arg[arg1_len] = {0x01, 0x00, 0x00, 0x00};
         constexpr uint8_t false_arg[arg1_len] = {0x00, 0x00, 0x00, 0x00};
@@ -87,10 +88,16 @@ namespace constants
             standby[0], standby[1], standby[2], standby[3],
             no_arg_2[0], no_arg_2[1], no_arg_2[2], no_arg_2[3]};
 
+        constexpr uint8_t mission_mode_post_deployment[command_len] = {
+            mission_mode[0], mission_mode[1],
+            post_deployment[0], post_deployment[1], post_deployment[2], post_deployment[3],
+            no_arg_2[0], no_arg_2[1], no_arg_2[2], no_arg_2[3]};
+
         constexpr int known_commands[num_commands][command_len] = {
             {mission_mode_deployment[0], mission_mode_deployment[1], mission_mode_deployment[2], mission_mode_deployment[3], mission_mode_deployment[4], mission_mode_deployment[5], mission_mode_deployment[6], mission_mode_deployment[7], mission_mode_deployment[8], mission_mode_deployment[9]},
             {mission_mode_standby[0], mission_mode_standby[1], mission_mode_standby[2], mission_mode_standby[3], mission_mode_standby[4], mission_mode_standby[5], mission_mode_standby[6], mission_mode_standby[7], mission_mode_standby[8], mission_mode_standby[9]},
-            {mission_mode_high_altitude[0], mission_mode_high_altitude[1], mission_mode_high_altitude[2], mission_mode_high_altitude[3], mission_mode_high_altitude[4], mission_mode_high_altitude[5], mission_mode_high_altitude[6], mission_mode_high_altitude[7], mission_mode_high_altitude[8], mission_mode_high_altitude[9]}};
+            {mission_mode_high_altitude[0], mission_mode_high_altitude[1], mission_mode_high_altitude[2], mission_mode_high_altitude[3], mission_mode_high_altitude[4], mission_mode_high_altitude[5], mission_mode_high_altitude[6], mission_mode_high_altitude[7], mission_mode_high_altitude[8], mission_mode_high_altitude[9]},
+            {mission_mode_post_deployment[0], mission_mode_post_deployment[1], mission_mode_post_deployment[2], mission_mode_post_deployment[3], mission_mode_post_deployment[4], mission_mode_post_deployment[5], mission_mode_post_deployment[6], mission_mode_post_deployment[7], mission_mode_post_deployment[8], mission_mode_post_deployment[9]}};
     }
     namespace camera
     {

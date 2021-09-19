@@ -31,8 +31,6 @@ GPSMonitor::GPSMonitor(unsigned int offset) : TimedControlTask<void>(offset)
 
 void GPSMonitor::execute()
 {
-    Serial.println(sfr::gps::altitude);
-    Serial.println(sfr::gps::altitude_average);
     for (unsigned long start = millis(); millis() - start < 1000;)
     {
         while (Serial3.available())
