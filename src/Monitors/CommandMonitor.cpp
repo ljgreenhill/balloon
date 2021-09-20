@@ -10,14 +10,6 @@ void CommandMonitor::execute()
         {
             dispatch_change_mission_mode();
         }
-        else if (sfr::rockblock::f_opcode == get_decimal_opcode(constants::rockblock::burnwire_time))
-        {
-            dispatch_change_burnwire_time();
-        }
-        else if (sfr::rockblock::f_opcode == get_decimal_opcode(constants::rockblock::burnwire_timeout))
-        {
-            dispatch_change_burnwire_timeout();
-        }
         else if (sfr::rockblock::f_opcode == get_decimal_opcode(constants::rockblock::rockblock_downlink_period))
         {
             dispatch_change_rockblock_downlink_period();
@@ -80,14 +72,6 @@ void CommandMonitor::dispatch_change_rockblock_downlink_period()
     }
 }
 
-void CommandMonitor::dispatch_change_burnwire_time()
-{
-    if (sfr::rockblock::f_arg_1 < constants::burnwire::max_burnwire_time && sfr::rockblock::f_arg_1 > constants::burnwire::min_burnwire_time)
-    {
-        sfr::burnwire::burn_time = sfr::rockblock::f_arg_1;
-    }
-}
-
 uint16_t CommandMonitor::get_decimal_opcode(const uint8_t *hex_opcode_bytes)
 {
     return (hex_opcode_bytes[1] << 8) | (hex_opcode_bytes[0]);
@@ -98,10 +82,3 @@ uint32_t CommandMonitor::get_decimal_arg(const uint8_t *hex_arg_bytes)
     return (hex_arg_bytes[3] << 24) | (hex_arg_bytes[2]) << 16 | (hex_arg_bytes[1] << 8) | (hex_arg_bytes[0]);
 }
 
-void CommandMonitor::dispatch_change_burnwire_timeout()
-{
-    if (sfr::rockblock::f_arg_1 < constants::burnwire::max_armed_time && sfr::rockblock::f_arg_1 > constants::burnwire::min_armed_time)
-    {
-        sfr::burnwire::burn_time = sfr::rockblock::f_arg_1;
-    }
-}

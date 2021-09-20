@@ -15,8 +15,7 @@ void NormalReportMonitor::execute()
     sfr::rockblock::report[3] = latitude;
     sfr::rockblock::report[4] = sfr::photoresistor::covered;
     sfr::rockblock::report[5] = (uint8_t)sfr::mission::mode;
-    sfr::rockblock::report[6] = sfr::burnwire::burn_time;
-    sfr::rockblock::report[7] = (uint8_t)sfr::burnwire::mode;
-    sfr::rockblock::report[8] = sfr::burnwire::attempts;
-    sfr::rockblock::report[9] = downlink_period;
+    sfr::rockblock::report[6] = (uint8_t)sfr::burnwire::mode;
+    sfr::rockblock::report[7] = sfr::burnwire::attempts;
+    sfr::rockblock::report[8] = downlink_period;
 }

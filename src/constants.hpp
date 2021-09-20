@@ -17,11 +17,6 @@ namespace constants
         constexpr int pin = 30;
         constexpr int burn_wait = 500;
         constexpr int max_attempts = 10;
-        constexpr int camera_max_attempts = 50;
-        constexpr int min_burnwire_time = 0;
-        constexpr int max_burnwire_time = 60000;
-        constexpr int min_armed_time = 0;
-        constexpr int max_armed_time = 86400000;
     }
     namespace rockblock
     {
@@ -52,13 +47,8 @@ namespace constants
         constexpr int num_initial_downlinks = 2;
 
         constexpr uint8_t mission_mode[opcode_len] = {0x00, 0x00};
-        constexpr uint8_t burnwire_fire[opcode_len] = {0x02, 0x00};
-        constexpr uint8_t burnwire_time[opcode_len] = {0x03, 0x00};
-        constexpr uint8_t burnwire_timeout[opcode_len] = {0x04, 0x00};
-
-        constexpr uint8_t rockblock_downlink_period[opcode_len] = {0x05, 0x00};
-
-        constexpr uint8_t request_image_fragment[opcode_len] = {0x06, 0x00};
+        constexpr uint8_t rockblock_downlink_period[opcode_len] = {0x01, 0x00};
+        constexpr uint8_t request_image_fragment[opcode_len] = {0x02, 0x00};
 
         constexpr uint8_t standby[arg1_len] = {0x00, 0x00, 0x00, 0x00};
         constexpr uint8_t high_altitude[arg1_len] = {0x01, 0x00, 0x00, 0x00};
