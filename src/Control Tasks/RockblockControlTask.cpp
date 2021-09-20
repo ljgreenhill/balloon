@@ -460,12 +460,6 @@ bool RockblockControlTask::valid_command(){
         if(sfr::rockblock::opcode[o] != constants::rockblock::rockblock_downlink_period[o]) {
             rockblock_downlink_period_opcode = false;
         }
-        if(sfr::rockblock::opcode[o] != constants::rockblock::burnwire_time[o]) {
-            burnwire_time_opcode = false;
-        }
-        if(sfr::rockblock::opcode[o] != constants::rockblock::burnwire_timeout[o]) {
-            burnwire_timeout_opcode = false;
-        }
     }
 
     if(request_image_fragment_opcode){
