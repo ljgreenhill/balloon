@@ -55,12 +55,13 @@ void MissionManager::dispatch_deployment()
         BurnwireControlTask::transition_to_standby();
         transition_to_post_deployment();
     }
-    else if (sfr::burnwire::attempts > constants::burnwire::max_attempts){
+    else if (sfr::burnwire::attempts > constants::burnwire::max_attempts)
+    {
         transition_to_post_deployment();
     }
 }
 
-void MissionManager::dispatch_post_deployment(){}
+void MissionManager::dispatch_post_deployment() {}
 
 void MissionManager::transition_to_standby()
 {
@@ -89,15 +90,4 @@ void MissionManager::transition_to_post_deployment()
     sfr::rockblock::downlink_period = constants::rockblock::ten_minutes;
     sfr::rockblock::camera_downlink_period = constants::rockblock::ten_minutes;
     sfr::mission::mode = mission_mode_type::post_deployment;
-}
-
-void MissionManager::add_sensor_value(std::deque<float> buffer, float sensor_reading, float sensor_average)
-{
-    buffer.push_front(sensor_reading);
-    if (buffer.size() > constants::sensor::collect)
-    {
-        buffer.pop_back();
-    }
-    float altitude_sum = std::accumulate(buffer.begin(), buffer.end(), 0.0);
-    sensor_average = altitude_sum / buffer.size();
 }
