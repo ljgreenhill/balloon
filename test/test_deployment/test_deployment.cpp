@@ -51,8 +51,9 @@ void test_timeout_max_attempts()
   TEST_ASSERT_EQUAL(burnwire_mode_type::burn, sfr::burnwire::mode);
   TEST_ASSERT_EQUAL(mission_mode_type::deployment, sfr::mission::mode);
 
-  for(int i=0; i <constants::burnwire::max_attempts; ++i){
-    delay(sfr::burnwire::burn_time);
+  for (int i = 0; i < constants::burnwire::max_attempts; ++i)
+  {
+    delay(constants::burnwire::burn_time);
     burnwire_control_task.execute();
     camera_control_task.execute();
     rockblock_control_task.execute();
@@ -170,8 +171,9 @@ void test_gps()
   TEST_ASSERT_EQUAL(burnwire_mode_type::burn, sfr::burnwire::mode);
   TEST_ASSERT_EQUAL(mission_mode_type::deployment, sfr::mission::mode);
 
-  for(int i=0; i <constants::burnwire::max_attempts; ++i){
-    delay(sfr::burnwire::burn_time);
+  for (int i = 0; i < constants::burnwire::max_attempts; ++i)
+  {
+    delay(constants::burnwire::burn_time);
     burnwire_control_task.execute();
     camera_control_task.execute();
     rockblock_control_task.execute();
@@ -218,10 +220,11 @@ void test_rockblock()
   mission_manager.execute();
   TEST_ASSERT_EQUAL(burnwire_mode_type::standby, sfr::burnwire::mode);
   TEST_ASSERT_EQUAL(mission_mode_type::standby, sfr::mission::mode);
-  
+
   sim.insert("00000200000000000000");
   sfr::rockblock::downlink_period = 0;
-  while(!sfr::rockblock::waiting_command){
+  while (!sfr::rockblock::waiting_command)
+  {
     burnwire_control_task.execute();
     camera_control_task.execute();
     rockblock_control_task.execute();
@@ -229,7 +232,7 @@ void test_rockblock()
     command_monitor.execute();
     mission_manager.execute();
   }
-  
+
   TEST_ASSERT_EQUAL(burnwire_mode_type::standby, sfr::burnwire::mode);
   TEST_ASSERT_EQUAL(mission_mode_type::deployment, sfr::mission::mode);
 
@@ -242,8 +245,9 @@ void test_rockblock()
   TEST_ASSERT_EQUAL(burnwire_mode_type::burn, sfr::burnwire::mode);
   TEST_ASSERT_EQUAL(mission_mode_type::deployment, sfr::mission::mode);
 
-  for(int i=0; i <constants::burnwire::max_attempts; ++i){
-    delay(sfr::burnwire::burn_time);
+  for (int i = 0; i < constants::burnwire::max_attempts; ++i)
+  {
+    delay(constants::burnwire::burn_time);
     burnwire_control_task.execute();
     camera_control_task.execute();
     rockblock_control_task.execute();
@@ -269,31 +273,31 @@ void test_rockblock()
   TEST_ASSERT_EQUAL(mission_mode_type::post_deployment, sfr::mission::mode);
 }
 
-  int test_burnwire()
-  {
-    UNITY_BEGIN();
+int test_burnwire()
+{
+  UNITY_BEGIN();
 
-    RUN_TEST(test_timeout_max_attempts);
-    RUN_TEST(test_timeout_photoresistor);
-    RUN_TEST(test_gps);
-    //RUN_TEST(test_rockblock);
+  RUN_TEST(test_timeout_max_attempts);
+  RUN_TEST(test_timeout_photoresistor);
+  RUN_TEST(test_gps);
+  //RUN_TEST(test_rockblock);
 
-    return UNITY_END();
-  }
+  return UNITY_END();
+}
 
 #ifdef DESKTOP
-  int main()
-  {
-    return test_deployment();
-  }
+int main()
+{
+  return test_deployment();
+}
 #else
 #include <Arduino.h>
-  void setup()
-  {
-    delay(2000);
-    Serial.begin(9600);
-    test_burnwire();
-  }
+void setup()
+{
+  delay(2000);
+  Serial.begin(9600);
+  test_burnwire();
+}
 
-  void loop() {}
+void loop() {}
 #endif

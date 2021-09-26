@@ -20,7 +20,6 @@ namespace sfr
         int attempts = 0;
         int start_time = 0;
         int camera_attempts = 0;
-        int burn_time = 500;
     }
     namespace camera
     {
