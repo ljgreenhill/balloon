@@ -10,9 +10,9 @@ void NormalReportMonitor::execute()
     uint8_t latitude = map(sfr::gps::latitude_average, constants::gps::min_latitude_average, constants::gps::max_longitude_average, 0, 255);
 
     sfr::rockblock::report[0] = 21;
-    sfr::rockblock::report[1] = altitude;
-    sfr::rockblock::report[2] = longitude;
-    sfr::rockblock::report[3] = latitude;
+    sfr::rockblock::report[1] = sfr::gps::altitude_average;
+    sfr::rockblock::report[2] = sfr::gps::longitude_average;
+    sfr::rockblock::report[3] = sfr::gps::latitude_average;
     sfr::rockblock::report[4] = sfr::photoresistor::covered;
     sfr::rockblock::report[5] = (uint8_t)sfr::mission::mode;
     sfr::rockblock::report[6] = (uint8_t)sfr::burnwire::mode;
