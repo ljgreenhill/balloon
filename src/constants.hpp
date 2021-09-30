@@ -5,7 +5,7 @@ namespace constants
 {
     namespace timer
     {
-        constexpr int fail_safe_deploy = 30000;
+        constexpr int fail_safe_deploy = 5400000;
     }
     namespace photoresistor
     {

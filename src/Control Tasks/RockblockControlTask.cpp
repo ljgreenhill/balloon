@@ -316,7 +316,7 @@ void RockblockControlTask::dispatch_await_signal_strength_mo(){
         char signal = Serial4.read();
         Serial.print("SAT INFO: signal level ");
         Serial.println(signal);
-        if(signal =='3' || signal =='4' || signal =='5'){
+        if(signal =='2' || signal =='3' || signal =='4' || signal =='5'){
             transition_to(rockblock_mode_type::send_response);
         } else{
             transition_to(rockblock_mode_type::send_signal_strength_mo);

@@ -63,7 +63,7 @@ namespace sfr
         uint8_t arg_1[4] = {0};
         uint8_t arg_2[4] = {0};
 #ifndef SIMULATOR
-        HardwareSerial serial = Serial1;
+        HardwareSerial serial = Serial4;
 #else
         RockblockSimulator serial;
 #endif
