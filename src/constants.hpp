@@ -141,7 +141,7 @@ namespace constants
                                             0x00, 0x00, 0x56, 0x76};
         constexpr uint8_t CheckNav[] = {0xB5, 0x62, 0x06, 0x24, 0x00, 0x00, 0x2A, 0x84};
         constexpr float min_altitude_average = 0;
-        constexpr float max_altitude_average = 2000000;
+        constexpr float max_altitude_average = 200000;
         constexpr float min_longitude_average = -180;
         constexpr float max_longitude_average = 180;
         constexpr float min_latitude_average = -90;
