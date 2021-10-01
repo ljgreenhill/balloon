@@ -68,7 +68,7 @@ void BurnwireControlTask::execute()
 
 void BurnwireControlTask::dispatch_burn()
 {
-    Serial.println("BURNING");
+    
     sfr::burnwire::camera_attempts = 0;
     sfr::burnwire::mode = burnwire_mode_type::burn;
     sfr::burnwire::start_time = millis();
@@ -80,6 +80,7 @@ void BurnwireControlTask::dispatch_burn()
     {
         if (sfr::burnwire::attempts % 2 == 0)
         {
+            Serial.println("BURNING");
             digitalWrite(constants::burnwire::pin, HIGH);
         }
         else

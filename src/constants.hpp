@@ -10,14 +10,14 @@ namespace constants
     namespace photoresistor
     {
         constexpr int pin = 22;
-        constexpr int light_val = 150;
+        constexpr int light_val = 400;
     }
     namespace burnwire
     {
         constexpr int pin = 30;
         constexpr int burn_wait = 500;
         constexpr int max_attempts = 10;
-        constexpr int burn_time = 500;
+        constexpr int burn_time = 200;
     }
     namespace rockblock
     {
@@ -25,6 +25,7 @@ namespace constants
 
         constexpr unsigned long one_minute = 60 * one_second;
         constexpr unsigned long ten_minutes = 10 * one_minute;
+        constexpr unsigned long five_minutes = 5 * one_minute;
 
         constexpr int sleep_pin = 29;
 

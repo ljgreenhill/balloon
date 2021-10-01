@@ -66,8 +66,8 @@ void MissionManager::dispatch_post_deployment() {}
 void MissionManager::transition_to_standby()
 {
     sfr::mission::mode = mission_mode_type::standby;
-    sfr::rockblock::downlink_period = constants::rockblock::ten_minutes;
-    sfr::rockblock::camera_downlink_period = constants::rockblock::ten_minutes;
+    sfr::rockblock::downlink_period = constants::rockblock::five_minutes;
+    sfr::rockblock::camera_downlink_period = constants::rockblock::five_minutes;
 }
 
 void MissionManager::transition_to_deployment()
@@ -87,7 +87,7 @@ void MissionManager::transition_to_high_altitude()
 
 void MissionManager::transition_to_post_deployment()
 {
-    sfr::rockblock::downlink_period = constants::rockblock::ten_minutes;
-    sfr::rockblock::camera_downlink_period = constants::rockblock::ten_minutes;
+    sfr::rockblock::downlink_period = constants::rockblock::five_minutes;
+    sfr::rockblock::camera_downlink_period = constants::rockblock::five_minutes;
     sfr::mission::mode = mission_mode_type::post_deployment;
 }
