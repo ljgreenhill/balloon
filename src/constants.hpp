@@ -131,7 +131,7 @@ namespace constants
     namespace gps
     {
         constexpr int baud = 9600;
-        constexpr int mand_deploy = 27143;
+        constexpr int mand_deploy = 28000;
         constexpr int high_altitude = 20000;
         const unsigned char SetCfgNav5[] = {0xB5, 0x62, 0x06, 0x24, 0x24, 0x00, 0x01, 0x01,
                                             0x06, 0x03, 0x00, 0x00, 0x00, 0x00, 0x10, 0x27,

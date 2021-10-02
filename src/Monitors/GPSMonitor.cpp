@@ -46,12 +46,15 @@ void GPSMonitor::execute()
         float longitude_sum = std::accumulate(sfr::gps::longitude_buffer.begin(), sfr::gps::longitude_buffer.end(), 0.0);
         sfr::gps::longitude_average = longitude_sum / sfr::gps::longitude_buffer.size();
 
-        sfr::gps::altitude_buffer.push_front(sfr::gps::altitude);
-        if (sfr::gps::altitude_buffer.size() > constants::sensor::collect)
-        {
-            sfr::gps::altitude_buffer.pop_back();
+        if(sfr::gps::altitude < constants::gps::max_altitude_average){
+            sfr::gps::altitude_buffer.push_front(sfr::gps::altitude);
+            if (sfr::gps::altitude_buffer.size() > constants::sensor::collect)
+            {
+                sfr::gps::altitude_buffer.pop_back();
+            }
+            float altitude_sum = std::accumulate(sfr::gps::altitude_buffer.begin(), sfr::gps::altitude_buffer.end(), 0.0);
+            sfr::gps::altitude_average = altitude_sum / sfr::gps::altitude_buffer.size();
         }
-        float altitude_sum = std::accumulate(sfr::gps::altitude_buffer.begin(), sfr::gps::altitude_buffer.end(), 0.0);
-        sfr::gps::altitude_average = altitude_sum / sfr::gps::altitude_buffer.size();
+       
     }
 }
