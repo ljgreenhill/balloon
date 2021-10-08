@@ -1,4 +1,4 @@
-# Alpha CubeSat Flight Code
+# Alpha CubeSat High Altitude Balloon Launch Code
 
 ## Getting Started
 
