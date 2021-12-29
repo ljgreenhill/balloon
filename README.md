@@ -20,36 +20,3 @@
 This code is structured based on [Lodestar](https://github.com/shihaocao/lodestar), a small scale electric demonstrator for the belly-flop and tail-sitting control algorithms necessary for SpaceX's Starship.
 
 Both ClockManager and TimedControlTask are from [PAN](https://github.com/pathfinder-for-autonomous-navigation).
-
-### main.cpp
-This file is comparable to a .ino file you would see in the Arduino IDE (notice setup and loop are exactly the same as they would be in an Arduino file). 
-
-### MainControlLoop
-The MainControlLoop initializes and executes every monitor and control task.
-
-### MissionManager
-The CubeSat has 4 different modes with distinct entrance and exit conditions
-* Standby 
-* Safe
-* Low Power
-* Deployment
-
-![mission modes](https://github.com/Alpha-CubeSat/oop-flight-code/blob/main/flight_code.png "mission modes")
-
-MissionManager sets which mode the CubeSat should be in based on these exit/entrance conditions.
-
-### SFR
-SFR stands for State Field Registry. It contains the mode of each system, all sensor values, and universal flags that should be available to the entire CubeSat. 
-
-### Control Tasks
-Control tasks are any file that actuates/performs a task based on a value in the SFR. 
-
-### Monitors
-Monitors simply read input from sensors and update the sensor values in the SFR.
-
-### constants.hpp
-Constants contains values that will never be changed. This prevents "magic numbers".
-
-
-
-
